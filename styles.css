@@ -393,4 +393,7 @@ body[data-sec="pain"] .bar,body[data-sec="pain"] .foot{border-color:#DCE1F6}
 .slide:has(.focus-trigger.shown) .t-focus{opacity:1;transform:none}
 .after-deck{display:none!important}
 .table-on .after-deck{display:flex!important;animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.demo-link{display:inline-flex;align-items:center;gap:10px;justify-self:center;margin-top:8px;padding:14px 22px;border-radius:12px;background:var(--paper);color:var(--mysteria);font-size:18px;font-weight:600;text-decoration:none;box-shadow:0 20px 50px -20px rgba(20,10,60,.6)}
+.demo-link:hover{filter:brightness(.97)}
+.demo-link:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
