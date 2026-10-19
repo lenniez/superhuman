@@ -1,0 +1,987 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>AI-Native Task List Case</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-screen carousel. Twilight-purple gradient "hero" slides alternate with white paper slides; data shown inside app-window frames like product screenshots. Single committed look (Superhuman-inspired), set explicitly for any host theme. */
+:root{
+  --mysteria:#4B35B5; --twilight:#7457DB; --dusk:#B48CF0; --ember:#F59AB5;
+  --lavender:#CBB7FB; --amethyst:#714CB6;
+  --ink:#292827; --ink-2:#5E5955; --faint:#8D8781;
+  --paper:#FFFFFF; --cream:#F6F3EE; --cream-2:#E9E5DD; --line:#DCD7D3;
+  --on-dark:rgba(255,255,255,.95); --on-dark-2:rgba(255,255,255,.72); --dark-line:rgba(255,255,255,.2);
+  --shadow:0 30px 70px -30px rgba(27,25,56,.45),0 2px 6px rgba(27,25,56,.06);
+  --sans:"Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif:"Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --mono:"Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* backdrop: twilight gradient that crossfades in on dark slides */
+.backdrop{position:fixed;inset:0;z-index:0;background:var(--paper);overflow:hidden}
+.sky{position:absolute;inset:-10%;opacity:0;transition:opacity .7s ease;
+  background:
+    radial-gradient(70% 55% at 76% 108%, #FFC6AE 0%, rgba(245,154,181,.6) 24%, transparent 60%),
+    radial-gradient(60% 50% at 25% 100%, var(--dusk) 0%, transparent 62%),
+    radial-gradient(70% 60% at 10% -5%, #5C44D0 0%, transparent 60%),
+    linear-gradient(180deg, var(--mysteria) 0%, #5E45CF 40%, var(--twilight) 72%, #9378E6 100%);
+  background-size:120% 120%,130% 130%,100% 100%,100% 100%;
+  animation:drift 22s ease-in-out infinite alternate}
+.sky::after{content:"";position:absolute;inset:0;opacity:.16;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.horizon{position:absolute;left:-10%;right:-10%;bottom:-38vh;height:60vh;border-radius:50%;opacity:0;transition:opacity .7s ease;
+  background:radial-gradient(closest-side, rgba(255,236,226,.6), rgba(245,154,181,.25) 55%, transparent 75%);filter:blur(6px)}
+body.dark .sky,body.dark .horizon{opacity:1}
+@keyframes drift{0%{background-position:0% 0%,100% 0%,0 0,0 0}100%{background-position:30% 20%,60% 30%,0 0,0 0}}
+
+.app{position:relative;z-index:1;height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* chrome */
+.bar,.foot{display:flex;align-items:center;justify-content:space-between;gap:16px;font-size:14px;color:var(--ink-2);transition:color .5s,border-color .5s}
+.bar{padding-block:16px;border-bottom:1px solid var(--line)}
+.foot{padding-block:12px;border-top:1px solid var(--line)}
+body.dark .bar,body.dark .foot{color:var(--on-dark-2);border-color:var(--dark-line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;letter-spacing:-.01em;transition:color .5s}
+body.dark .brand{color:var(--on-dark)}
+.mark{width:18px;height:18px;border-radius:5px;background:linear-gradient(140deg,var(--lavender),var(--amethyst) 60%,var(--ember));box-shadow:0 0 0 1px rgba(255,255,255,.15) inset}
+.section-name{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dots button{width:22px;height:4px;border:0;border-radius:2px;background:var(--line);cursor:pointer;padding:0;transition:background .3s,width .3s}
+body.dark .dots button{background:var(--dark-line)}
+.dots button[aria-current="true"]{background:var(--amethyst);width:34px}
+body.dark .dots button[aria-current="true"]{background:var(--lavender)}
+.ctrls{display:flex;align-items:center;gap:8px}
+.btn{font:inherit;font-size:14px;font-weight:600;color:var(--ink);background:var(--cream-2);border:0;border-radius:8px;padding:7px 12px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;transition:filter .2s}
+.btn:hover{filter:brightness(.96)}
+.btn:focus-visible,.dots button:focus-visible{outline:2px solid var(--amethyst);outline-offset:2px}
+body.dark .btn:focus-visible,body.dark .dots button:focus-visible{outline-color:var(--lavender)}
+kbd{font-family:var(--mono);font-size:14px;font-weight:400;color:var(--ink-2);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--paper)}
+body.dark .hints kbd{color:var(--on-dark-2);border-color:var(--dark-line);background:rgba(255,255,255,.06)}
+.count{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.hints{display:flex;gap:14px;align-items:center}
+@media (max-width:760px){.hints{display:none}}
+
+/* stage + slides */
+.stage{position:relative;overflow:hidden}
+.slide{position:absolute;inset:0;overflow-y:auto;padding-block:clamp(16px,3.5vh,44px);display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s}
+.slide.active{opacity:1;visibility:visible}
+.inner{width:100%;max-width:1160px;margin:auto;display:flex;flex-direction:column;gap:clamp(14px,2.4vh,28px)}
+@media (min-width:601px){.slide{overflow:hidden}}
+.build{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s cubic-bezier(.2,.7,.2,1);pointer-events:none}
+.build.shown{opacity:1;transform:none;pointer-events:auto}
+.slide.active .inner > .build{animation:none}
+.hint{font-size:14px;color:var(--faint);display:flex;gap:8px;align-items:center}
+.reveal-btn{font:inherit;color:inherit;text-align:left;cursor:pointer}
+.reveal-btn:focus-visible{outline:2px solid var(--amethyst);outline-offset:3px}
+.reveal-btn .hint{margin-top:auto}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:560px){.g2{grid-template-columns:1fr}}
+.mission-card{background:linear-gradient(135deg,#F4EEFF,#FFF1F4);border-color:#DCCFFA}
+.mission-card .mission{font-family:var(--sans);font-style:normal;font-weight:600;font-size:clamp(24px,2.3vw,30px);line-height:1.18;letter-spacing:-.02em;max-width:26ch;background:linear-gradient(90deg,var(--mysteria),var(--amethyst) 55%,#D9608A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mission-card .mission em{font-style:normal;color:inherit}
+.byline{margin:0;font-size:16px;color:var(--on-dark);display:flex;align-items:center;gap:12px}
+.avatar{width:40px;height:40px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 .5px rgba(255,255,255,.75);flex:none}
+#rationale{background:#F7F2FF;border:1.5px solid var(--amethyst);box-shadow:0 12px 30px -18px rgba(113,76,182,.5)}
+#rationale .label{color:var(--amethyst)}
+.agenda-wrap{display:flex;flex-direction:column;gap:clamp(16px,3vh,28px)}
+.eco-wrap{width:100%;max-width:1120px;margin-inline:auto}
+.eco-svg{display:block;width:100%;height:auto}
+.eco-svg text{font-family:var(--sans)}
+.eco-svg .nbox{fill:var(--paper);stroke:#E6E0EE;stroke-width:1}
+.eco-svg .pri .nbox{fill:var(--paper);stroke:var(--amethyst);stroke-width:2}
+.eco-svg .ico{fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.eco-svg .nt{font-size:17px;font-weight:600;fill:var(--ink)}
+.eco-svg .ns{font-size:14px;fill:var(--ink-2)}
+.eco-svg .reg-pl{fill:#FFFFFF;stroke:#E6E0EE}
+.eco-svg .reg-us{fill:#EEE6FE;stroke:#D8C9FA}
+.eco-svg .reg-gr{fill:#FDE9EF;stroke:#F5CCD8}
+.eco-svg .rl{font-size:14px;font-weight:700;letter-spacing:.06em;fill:var(--faint)}
+.eco-svg .conn{fill:none;stroke-width:2.5;stroke-linecap:round}
+.eco-svg .c-pl{stroke:#C9C0D8}.eco-svg .dot-pl{fill:#C9C0D8}
+.eco-svg .c-us{stroke:#B49CF0}.eco-svg .dot-us{fill:#B49CF0}
+.eco-svg .c-gr{stroke:#EFA6BC}.eco-svg .dot-gr{fill:#EFA6BC}
+.eco-svg .pl .ibg{fill:#EFEBF5}.eco-svg .pl .ico{stroke:#6E6584}
+.eco-svg .us .ibg{fill:#E6DAFD}.eco-svg .us .ico{stroke:#714CB6}
+.eco-svg .gr .ibg{fill:#FBD9E3}.eco-svg .gr .ico{stroke:#B9506F}
+.eco-svg .fade,.eco-svg .fade-soft{transition:opacity .6s ease}
+.slide:has(.focus-trigger.shown) .eco-svg .fade{opacity:.1}
+.slide:has(.focus-trigger.shown) .eco-svg .fade-soft{opacity:.45}
+.eco-svg .indiv{transform-box:fill-box;transform-origin:center;transition:transform .6s cubic-bezier(.2,.7,.2,1),filter .6s}
+.slide:has(.focus-trigger.shown) .eco-svg .indiv{transform:scale(1.12);filter:drop-shadow(0 14px 24px rgba(113,76,182,.35))}
+.eco-svg .el{font-size:14px;font-weight:600;fill:var(--amethyst);paint-order:stroke;stroke:var(--paper);stroke-width:7;stroke-linejoin:round}
+.eco-svg .plabel{font-size:17px;font-weight:600;fill:var(--ink)}
+.eco-svg .pchip{fill:var(--mysteria)}
+.eco-svg .pchipt{font-size:14px;font-weight:600;fill:var(--lavender)}
+.notes{display:none}
+.rise{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+@keyframes rise{from{transform:translateY(14px);opacity:.25}to{transform:none;opacity:1}}
+.slide.active .inner > *{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+.slide.active .inner > *:nth-child(2){animation-delay:.06s}
+.slide.active .inner > *:nth-child(3){animation-delay:.12s}
+.slide.active .inner > *:nth-child(4){animation-delay:.18s}
+.slide.active .inner > *:nth-child(5){animation-delay:.24s}
+
+/* type */
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amethyst)}
+.dark-slide .eyebrow{color:var(--lavender)}
+h1,h2{margin:0;text-wrap:balance}
+h1{font-size:clamp(40px,6vw,76px);line-height:.98;font-weight:560;letter-spacing:-.025em}
+h2{font-size:clamp(30px,3.8vw,48px);line-height:1;font-weight:500;letter-spacing:-.028em}
+.serif{font-family:var(--serif);font-weight:400;font-style:italic;letter-spacing:-.005em}
+.dark-slide{color:var(--on-dark)}
+.dark-slide h1 .serif,.dark-slide h2 .serif{color:var(--lavender)}
+h2 .serif{color:var(--amethyst)}
+.small{font-size:14px;color:var(--faint);margin:0}
+.dark-slide .small{color:var(--on-dark-2)}
+ul.clean{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ul.clean li{display:flex;gap:10px;align-items:baseline}
+ul.clean li::before{content:"";flex:none;width:5px;height:5px;border-radius:50%;background:var(--amethyst);transform:translateY(-2px)}
+.dark-slide ul.clean li::before{background:var(--lavender)}
+
+/* grids + tiles */
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:900px){.g3,.g4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.g3,.g4{grid-template-columns:1fr}}
+.tile{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.tile .label{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.tile .big{font-size:20px;font-weight:560;letter-spacing:-.015em;line-height:1.2}
+.tile.hl{background:var(--paper);border-color:var(--amethyst);box-shadow:var(--shadow)}
+.dark-slide .tile{background:rgba(255,255,255,.12);border-color:var(--dark-line);color:var(--on-dark)}
+.dark-slide .tile .label{color:var(--on-dark-2)}
+.dark-slide .tile.hl{background:rgba(203,183,251,.14);border-color:rgba(203,183,251,.55);box-shadow:0 20px 60px -20px rgba(0,0,0,.5)}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;padding:4px 9px;border-radius:8px;background:var(--cream-2);color:var(--ink);white-space:nowrap}
+.chip.acc{background:var(--mysteria);color:var(--lavender)}
+.dark-slide .chip{background:rgba(255,255,255,.1);color:var(--on-dark)}
+.dark-slide .chip.acc{background:var(--lavender);color:var(--mysteria)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.path{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.path .arrow{color:var(--faint);font-family:var(--mono)}
+.dark-slide .path .arrow{color:var(--on-dark-2)}
+
+/* title slide */
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,64px);align-items:center}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.mock{display:none}}
+.hero-copy{display:flex;flex-direction:column;gap:22px}
+.agenda-list{list-style:none;margin:0;padding:0;display:grid;max-width:760px;border-top:1px solid #EEEBE9}
+.agenda-list li{display:flex;align-items:baseline;gap:24px;padding:clamp(10px,1.9vh,16px) 2px;border-bottom:1px solid #EEEBE9}
+.agenda-list b{font-family:var(--mono);font-weight:500;font-size:14px;color:var(--amethyst);flex:none;width:28px}
+.agenda-list span{font-size:clamp(20px,2vw,26px);font-weight:560;letter-spacing:-.015em;line-height:1.15}
+.agenda-list li.demo span{background:linear-gradient(90deg,var(--mysteria),var(--amethyst) 60%,#D9608A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.demo-stage{flex:1;display:grid;place-items:center;text-align:center}
+.demo-stage h2{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(64px,10vw,140px);color:var(--on-dark)}
+.mock{background:rgba(255,255,255,.97);color:var(--ink);border-radius:16px;box-shadow:0 40px 90px -30px rgba(60,30,140,.55),0 0 0 1px rgba(255,255,255,.25);overflow:hidden;transform:rotate(-1.2deg)}
+.mock .wbar{background:var(--cream)}
+.mrow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:13px 16px;border-top:1px solid var(--line);animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.slide.active .mrow:nth-of-type(1){animation-delay:.25s}.slide.active .mrow:nth-of-type(2){animation-delay:.4s}
+.slide.active .mrow:nth-of-type(3){animation-delay:.55s}.slide.active .mrow:nth-of-type(4){animation-delay:.7s}
+.check{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--line)}
+.mrow .t{font-size:14px;font-weight:500;min-width:0}
+.mrow .src{display:block;font-size:14px;color:var(--faint);font-weight:400}
+.due{font-family:var(--mono);font-size:14px;color:var(--amethyst);background:#F1ECFD;border-radius:6px;padding:2px 7px}
+.mfoot{padding:11px 16px;border-top:1px solid var(--line);font-size:14px;color:var(--faint);display:flex;gap:8px;align-items:center}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--amethyst);box-shadow:0 0 0 0 rgba(113,76,182,.5);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(113,76,182,0)}100%{box-shadow:0 0 0 0 rgba(113,76,182,0)}}
+
+/* window frame (product-screenshot style) */
+.window{background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;min-width:0}
+.wbar{display:flex;align-items:center;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--cream)}
+.wbar i{width:9px;height:9px;border-radius:50%;background:var(--cream-2);border:1px solid var(--line)}
+.wbar span{margin-left:8px;font-family:var(--mono);font-size:14px;color:var(--faint)}
+.mock .wbar{border-bottom:0}
+.tbl-wrap{overflow-x:auto}
+
+/* mission */
+.mission{font-family:var(--serif);font-style:italic;font-size:clamp(36px,5.2vw,72px);line-height:1;letter-spacing:-.015em;margin:0;text-wrap:balance;max-width:19ch;color:var(--on-dark)}
+.mission em{font-style:italic;color:var(--lavender)}
+
+/* ecosystem */
+.eco{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.eco .core{grid-column:span 5;flex-direction:row;align-items:center;gap:24px;flex-wrap:wrap}
+.eco .core .big{font-size:28px}
+@media (max-width:900px){.eco{grid-template-columns:repeat(2,minmax(0,1fr))}.eco .core{grid-column:span 2}}
+
+/* heat tables */
+table.heat{width:100%;border-collapse:separate;border-spacing:0;font-variant-numeric:tabular-nums;min-width:680px}
+.heat th{font-size:14px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--faint);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line)}
+.heat td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.heat tr:last-child td{border-bottom:0}
+.heat .name{font-weight:600;font-size:15.5px;letter-spacing:-.01em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.heat .desc{font-size:14px;color:var(--ink-2);margin-top:2px;max-width:42ch}
+.heat td.cell{padding:6px}
+.cellbox{border-radius:8px;padding:8px 12px;background:color-mix(in oklab,var(--amethyst) var(--p),var(--cream));color:var(--ink);display:flex;flex-direction:column;gap:1px;min-width:92px}
+.cellbox.on{color:#fff}
+.cellbox .v{font-weight:600;font-size:15px}
+.cellbox .n{font-family:var(--mono);font-size:14px;opacity:.7}
+.score .cellbox .v{font-family:var(--mono);font-size:21px;font-weight:500}
+.score .cellbox.top{background:linear-gradient(135deg,var(--mysteria),var(--amethyst) 70%,var(--ember));color:#fff}
+tr.pick td{background:#FAF8FF}
+tr.pick td:first-child{box-shadow:inset 3px 0 0 var(--amethyst)}
+.slide.active .cellbox{animation:fill .6s ease both}
+.slide.active tbody tr:nth-child(2) .cellbox{animation-delay:.08s}
+.slide.active tbody tr:nth-child(3) .cellbox{animation-delay:.16s}
+.slide.active tbody tr:nth-child(4) .cellbox{animation-delay:.24s}
+.slide.active tbody tr:nth-child(5) .cellbox{animation-delay:.32s}
+@keyframes fill{from{filter:saturate(0) brightness(1.15)}to{filter:none}}
+.heat.lite td.cell{padding:9px 14px}
+.heat.lite .cellbox{background:none;padding:0;min-width:0;color:var(--ink);animation:none!important}
+.heat.lite .cellbox .v{font-weight:500}
+.heat.lite .cellbox{flex-direction:row;align-items:center;gap:8px}
+.heat.lite .cellbox .n{order:-1;display:inline-grid;place-items:center;min-width:24px;height:24px;border-radius:6px;background:var(--cream-2);color:var(--ink-2);opacity:1;font-size:14px}
+.heat.lite .score .cellbox .v{font-size:32px;font-weight:600;font-family:var(--sans);letter-spacing:-.02em;color:color-mix(in oklab,var(--amethyst) var(--p),#CFC8C1)}
+.heat.lite .score .cellbox.top .v{background:linear-gradient(135deg,var(--mysteria),var(--amethyst) 55%,#D9608A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.seg-stage{display:grid}
+.seg-stage > *{grid-area:1/1;min-width:0}
+.persona-deck{display:grid;justify-items:center;align-items:start;padding:6px 40px 40px 0}
+.pcard{grid-area:1/1;width:min(860px,100%);background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:28px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:28px;transition:transform .6s cubic-bezier(.2,.7,.2,1),opacity .5s ease}
+.pcard.pri{border-color:var(--amethyst);border-width:1.5px}
+@media (max-width:760px){.pcard{grid-template-columns:1fr}}
+.pc-left{display:flex;flex-direction:column;gap:16px}
+.pav{width:96px;height:96px;flex:none}
+.pc-who{display:flex;flex-direction:column;gap:4px}
+.pc-seg{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amethyst);display:flex;gap:8px;align-items:center}
+.pc-segname{font-size:28px;font-weight:560;letter-spacing:-.02em;line-height:1.1}
+.pc-name{font-size:18px;font-weight:600;margin-top:8px}
+.pc-role{font-size:15px;color:var(--ink-2)}
+.pc-right{display:flex;flex-direction:column;gap:12px}
+.pc-right .label{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.pchars{display:flex;flex-wrap:wrap;gap:8px}
+.pchar{font-size:14px;padding:5px 10px;border-radius:8px;display:inline-flex;gap:6px;background:var(--cream)}
+.pchar b{font-weight:600}
+.pchar.hi{background:#EEE6FD;color:var(--amethyst)}
+.pchar.md{background:var(--cream-2);color:var(--ink)}
+.pchar.lo{background:var(--cream);color:var(--faint)}
+.pc-quote{margin:0;font-family:var(--serif);font-style:italic;font-size:22px;line-height:1.2;color:var(--ink)}
+.seg-table{display:flex;flex-direction:column;gap:clamp(14px,2.4vh,28px);opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease,visibility .5s}
+.table-on .seg-table{opacity:1;visibility:visible;transform:none}
+.table-on .persona-deck,.table-on .deck-hint{visibility:hidden}
+.vpair{display:grid;grid-template-columns:1fr 1fr}
+.vcol{padding-right:32px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.vcol + .vcol{padding:0 0 0 32px;border-left:1px solid #DDD3F5}
+@media (max-width:700px){.vpair{grid-template-columns:1fr;gap:16px}.vcol,.vcol + .vcol{padding:0;border:0}}
+.vlabel{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amethyst)}
+.vtext{margin:0;font-size:16px}
+.vmission{border-block:1px solid #DDD3F5;padding-block:clamp(14px,2.8vh,28px);display:flex;flex-direction:column;gap:8px}
+.vmission .mission{font-family:var(--sans);font-style:normal;font-weight:600;font-size:clamp(30px,3.6vw,48px);line-height:1.08;letter-spacing:-.028em;max-width:22ch;background:linear-gradient(90deg,var(--mysteria),var(--amethyst) 55%,#D9608A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.vmission .mission em{font-style:normal;color:inherit}
+.vobj{display:flex;flex-direction:column;gap:12px}
+.track{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.tstep{display:flex;align-items:center;gap:12px}
+.twhen{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:8px}
+.now .twhen{background:var(--mysteria);color:var(--lavender)}
+.later .twhen{background:#E9E2F8;color:var(--ink-2)}
+.now .twhat{font-size:clamp(22px,2.2vw,28px);font-weight:600;letter-spacing:-.02em}
+.later .twhat{font-size:20px;font-weight:500;color:var(--ink-2)}
+.tline{flex:1;min-width:48px;height:2px;border-radius:2px;background:linear-gradient(90deg,var(--amethyst),#DDD3F5)}
+.phases{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,2.3fr);gap:14px 14px;align-items:stretch}
+.phase{border-radius:20px;padding:16px 18px;display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.6);border:1px solid #DCE1F6;min-width:0}
+.phase.daily{background:var(--paper);border-color:#C9D1F2;box-shadow:0 24px 50px -30px rgba(63,79,184,.45)}
+.phase.adhoc{grid-column:1/-1;flex-direction:row;align-items:center;gap:18px;flex-wrap:wrap;background:transparent;border:1.5px dashed #BCC5EE;padding:12px 18px}
+.phead{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A5BC2;text-align:center}
+.phase.adhoc .phead{text-align:left;display:flex;flex-direction:column;gap:2px}
+.phead small{font-size:14px;font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink-2)}
+.parrow,.darrow{align-self:center;font-size:22px;color:#9AA5DD}
+.dpair{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch}
+.dpair .jstep .card{height:100%}
+.loop{height:18px;margin:-2px 24% 0;border:2px solid #A7B1E6;border-top:0;border-radius:0 0 18px 18px;position:relative}
+.loop::before{content:"";position:absolute;left:-7px;top:-8px;border:6px solid transparent;border-bottom:9px solid #A7B1E6;border-top:0}
+.loop-label{text-align:center;font-size:14px;font-weight:600;color:#4A5BC2;margin-top:-6px}
+.aitems{display:flex;gap:12px;flex-wrap:wrap}
+.aitem{display:flex;align-items:center;gap:10px;background:var(--paper);border:1px solid #DCE1F6;border-radius:12px;padding:8px 14px 8px 8px;font-size:16px;font-weight:600}
+.jnum.sm{width:30px;height:30px}
+.tag{align-self:flex-start;font-size:14px;font-weight:700;color:#fff;background:linear-gradient(135deg,#3F4FB8,var(--amethyst));border-radius:7px;padding:2px 8px;margin-bottom:2px}
+.sec-pain .jstep.pick .card{border-color:#8E9BE0;box-shadow:none}
+@media (max-width:900px){.phases{grid-template-columns:1fr}.parrow{transform:rotate(90deg);justify-self:center}.dpair{grid-template-columns:1fr}.darrow{transform:rotate(90deg);justify-self:center}}
+@media (min-width:601px){.slide{padding:50px}}
+.drill-stage{display:grid}
+.drill-stage>*{grid-area:1/1;min-width:0}
+.drill-a,.drill-b{display:flex;flex-direction:column;gap:clamp(14px,2.4vh,24px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1),visibility .5s}
+.drill-b{opacity:0;visibility:hidden;gap:clamp(12px,2.2vh,20px)}
+.slide:has(.drill.shown) .drill-a{opacity:0;visibility:hidden;transition-duration:.25s}
+.slide:has(.drill.shown) .drill-b{opacity:1;visibility:visible;transition-duration:.15s}
+.prow .heat{min-width:0}
+.prow .heat tr.pick td{background:#EEE8FE;border-bottom:0}
+.prow .heat tr.pick td:first-child{box-shadow:inset 4px 0 0 var(--amethyst)}
+.jhead{font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#4A5BC2;margin-top:4px}
+.jlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px}
+@media (max-width:700px){.jlist{grid-template-columns:1fr}}
+.jlist li{display:flex;align-items:center;gap:12px;background:var(--paper);border:1px solid #DCE1F6;border-radius:12px;padding:12px 16px;font-size:17px;font-weight:500}
+.jchk{width:20px;height:20px;border-radius:6px;border:2px solid #8E9BE0;flex:none}
+.slide:has(.drill.shown) .jlist li{animation:rise .55s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(.75s + var(--k) * .12s)}
+.slide:has(.drill.shown) .drill-b .tile{animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+.slide:has(.drill.shown) .drill-b .tile:nth-child(2){animation-delay:.08s}
+.slide:has(.drill.shown) .drill-b .tile:nth-child(3){animation-delay:.16s}
+.slide:has(.drill.shown) .drill-b .tile:nth-child(4){animation-delay:.24s}
+.crumb{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;color:var(--ink-2);flex-wrap:wrap}
+.crumb-sep{color:var(--faint)}
+.jnum.pickn{background:linear-gradient(135deg,#3F4FB8,var(--amethyst));color:#fff;border-color:transparent}
+.heat tbody tr{transition:opacity .5s ease}
+.heat tr.pick td{transition:background .5s ease}
+.slide:has(.row-focus.shown) .heat tbody tr:not(.pick){opacity:.15}
+.slide:has(.row-focus.shown) .heat tr.pick td{background:#EEE8FE}
+.slide:has(.row-focus.shown) .heat tr.pick td:first-child{box-shadow:inset 4px 0 0 var(--amethyst)}
+.legend{transition:opacity .5s}
+.slide:has(.row-focus.shown) .legend{opacity:.35}
+.note{font-size:14px;color:var(--ink-2);max-width:30ch}
+.legend{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--faint);flex-wrap:wrap}
+.ramp{display:flex;border-radius:4px;overflow:hidden}
+.ramp span{width:28px;height:10px;background:color-mix(in oklab,var(--amethyst) var(--p),var(--cream))}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;position:relative}
+.journey::before{content:"";position:absolute;left:3%;right:3%;top:19px;height:2px;background:linear-gradient(90deg,var(--line),var(--lavender) 50%,var(--line))}
+.jstep{display:flex;flex-direction:column;align-items:center;gap:14px;min-width:0;position:relative}
+.jnum{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:14px;background:var(--paper);border:1px solid var(--line);position:relative}
+.jstep .card{align-self:stretch;background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.jstep.pick .jnum{background:var(--mysteria);color:var(--lavender);border-color:var(--mysteria);box-shadow:0 0 0 6px rgba(203,183,251,.45)}
+.jstep.pick .card{background:var(--paper);border-color:var(--amethyst);box-shadow:var(--shadow)}
+.jstep h3{margin:0;font-size:16px;font-weight:600;letter-spacing:-.01em}
+.jstep p{margin:0;font-size:14px;color:var(--ink-2)}
+@media (max-width:900px){.journey{grid-template-columns:1fr}.journey::before{display:none}.jstep{flex-direction:row;align-items:flex-start}.jnum{flex:none}.jstep .card{flex:1}}
+
+/* solutions */
+.board{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.col{background:var(--cream);border:1px solid var(--line);border-radius:8px;padding:4px 10px;display:flex;align-items:center;gap:6px;min-width:0}
+.col span{font-size:14px;color:var(--ink-2);width:104px;flex:none}
+.col i{display:block;height:8px;width:30px;border-radius:2px;background:color-mix(in oklab,var(--amethyst) 40%,var(--cream))}
+.press{display:flex;align-items:center;gap:12px;margin-top:4px}
+.press .key{width:46px;height:46px;border-radius:12px;border:1px solid var(--line);border-bottom-width:3px;background:var(--paper);display:grid;place-items:center}
+.press .key b{width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--amethyst),var(--ember))}
+.wave{display:flex;gap:3px;align-items:center;height:26px}
+.wave i{width:3px;border-radius:2px;background:var(--amethyst);animation:wave 1.4s ease-in-out infinite}
+.wave i:nth-child(2n){animation-delay:.2s}.wave i:nth-child(3n){animation-delay:.4s}
+@keyframes wave{50%{transform:scaleY(.45)}}
+.sol-num{font-family:var(--mono);font-size:14px;color:var(--amethyst)}
+
+/* notes drawer */
+.drawer{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);color:var(--ink);border-top:1px solid var(--line);box-shadow:0 -24px 60px -20px rgba(27,25,56,.35);padding-block:18px calc(18px + env(safe-area-inset-bottom,0px));padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));max-height:44vh;overflow-y:auto;transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.drawer.open{transform:none}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.drawer-head .eyebrow{color:var(--amethyst)}
+.drawer-body{font-size:14.5px;max-width:82ch}
+.drawer-body ul{margin:6px 0 0;padding-left:18px;display:grid;gap:5px}
+.drawer-body p{margin:0 0 6px}
+
+
+/* section themes */
+.backdrop{transition:background-color .6s ease}
+body[data-sec="assume"] .backdrop{background:#F8F6FC}
+body[data-sec="value"] .backdrop{background:#F4EFFE}
+body[data-sec="seg"] .backdrop{background:#F8F2FB}
+body[data-sec="pain"] .backdrop{background:#F1F3FD}
+body[data-sec="assume"] .bar,body[data-sec="assume"] .foot{border-color:#E7E2F0}
+body[data-sec="value"] .bar,body[data-sec="value"] .foot{border-color:#E1D8F7}
+body[data-sec="seg"] .bar,body[data-sec="seg"] .foot{border-color:#EADDF0}
+body[data-sec="pain"] .bar,body[data-sec="pain"] .foot{border-color:#DCE1F6}
+.sec-assume .tile,.sec-value .tile,.sec-seg .tile,.sec-pain .tile,.sec-pain .jstep .card{background:var(--paper);border-color:#ECE6F2}
+.sec-pain .eyebrow,.sec-pain h2 .serif{color:#4A5BC2}
+.sec-pain .jstep.pick .jnum{background:linear-gradient(135deg,#3F4FB8,var(--amethyst));color:#fff;border-color:transparent}
+.sec-pain .jstep.pick .jnum{box-shadow:0 0 0 6px rgba(140,155,230,.3)}
+.window{color:var(--ink)}
+.sec-sol .tile{background:var(--paper);color:var(--ink);border-color:transparent;box-shadow:0 30px 60px -30px rgba(40,20,100,.5)}
+.sec-sol .tile.hl{background:var(--paper);border-color:transparent;box-shadow:0 0 0 2px var(--lavender),0 30px 60px -24px rgba(40,20,100,.6)}
+.sec-sol .tile .label{color:var(--faint)}
+.sec-sol .tile .small{color:var(--faint)}
+.sec-sol .tile ul.clean li::before{background:var(--amethyst)}
+.sec-sol .tile .chip{background:var(--cream-2);color:var(--ink)}
+.sec-sol .tile .chip.acc,.sec-sol .window .chip.acc{background:var(--mysteria);color:var(--lavender)}
+.sec-sol .window .chip{background:var(--cream-2);color:var(--ink)}
+.dark-slide .legend{color:var(--on-dark-2)}
+.swap-title{display:grid}
+.swap-title>h2{grid-area:1/1;transition:opacity .5s ease,transform .5s ease}
+.t-focus{opacity:0;transform:translateY(8px)}
+.slide:has(.focus-trigger.shown) .t-default{opacity:0;transform:translateY(-8px)}
+.slide:has(.focus-trigger.shown) .t-focus{opacity:1;transform:none}
+.after-deck{display:none!important}
+.table-on .after-deck{display:flex!important;animation:rise .6s cubic-bezier(.2,.7,.2,1) both}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="backdrop" aria-hidden="true"><div class="sky"></div><div class="horizon"></div></div>
+
+<div class="app">
+  <header class="bar">
+    <div class="brand"><span class="mark" aria-hidden="true"></span>AI-native task list</div>
+    <div class="section-name" id="secName">Prompt</div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- Meet -->
+    <section class="slide dark-slide" data-name="Meet Lennie" data-tone="dark">
+      <div class="inner demo-stage">
+        <h2>Meet Lennie</h2>
+      </div>
+      <aside class="notes"><p>Intro placeholder.</p></aside>
+    </section>
+
+    <!-- 1 Title -->
+    <section class="slide dark-slide" data-name="Prompt" data-tone="dark">
+      <div class="inner">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">Prompt</div>
+            <h1>Design an <span class="serif">AI&#8209;native task list product.</span></h1>
+            <p class="byline"><img class="avatar" alt="" width="40" height="40" src="data:image/jpeg;base64,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">Author: Lennie Zhu</p>
+          </div>
+          <div class="mock" aria-label="Illustrative product concept">
+            <div class="wbar"><i></i><i></i><i></i><span>Today · captured for you</span></div>
+            <div class="mrow"><span class="check"></span><span class="t">Send revised deck to client<span class="src">From a call · 2:14 PM</span></span><span class="due">Fri</span></div>
+            <div class="mrow"><span class="check"></span><span class="t">Confirm site visit time<span class="src">From a text</span></span><span class="due">Today</span></div>
+            <div class="mrow"><span class="check"></span><span class="t">Reply about updated scope<span class="src">From Gmail</span></span><span class="due">Today</span></div>
+            <div class="mrow"><span class="check"></span><span class="t">Schedule follow-up meeting<span class="src">From Slack</span></span><span class="due">Mon</span></div>
+            <div class="mfoot"><span class="pulse"></span>Listening across email, calls and Slack</div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes"><p>Restate the prompt. The window on the right is an illustrative concept of the end state, not real data.</p></aside>
+    </section>
+
+    <!-- Agenda -->
+    <section class="slide" data-name="Agenda">
+      <div class="inner">
+        <div class="eyebrow">Agenda</div>
+        <div class="agenda-wrap">
+        <h2>How we'll <span class="serif">work through it</span></h2>
+        <ol class="agenda-list">
+          <li><b>01</b><span>Assumptions</span></li>
+          <li><b>02</b><span>Product value &amp; objectives</span></li>
+          <li><b>03</b><span>Target segments</span></li>
+          <li><b>04</b><span>Pain points</span></li>
+          <li><b>05</b><span>Solutions</span></li>
+          <li class="demo"><b>06</b><span>Demo</span></li>
+        </ol>
+        </div>
+      </div>
+      <aside class="notes"><p>Walk through the game plan and check in before starting.</p></aside>
+    </section>
+
+    <!-- 2 Assumptions -->
+    <section class="slide sec-assume" data-name="Assumptions" data-sec="assume">
+      <div class="inner">
+        <div class="eyebrow">01 · Assumptions</div>
+        <h2>Let's start with a B2C prosumer-focused product in the US market, <span class="serif">within a new startup.</span></h2>
+        <div class="grid g4">
+          <div class="tile"><div class="label">Scope</div><div class="big">General task management</div><p class="small">AI to solve and as a differentiator</p></div>
+          <div class="tile"><div class="label">Stage</div><div class="big">0→1 startup</div><p class="small">Some seed funding exists</p></div>
+          <div class="tile"><div class="label">Geography</div><div class="big">US first</div><p class="small">Most familiar to our team, then global</p></div>
+          <button type="button" class="tile hl reveal-btn" id="b2cBtn" aria-expanded="false" aria-controls="rationale"><div class="label">Market</div><div class="big">B2C prosumer</div>
+            <span class="hint">Click for rationale ↓</span>
+          </button>
+        </div>
+        <div class="tile build" id="rationale"><div class="label">Rationale</div>
+          <ul class="clean">
+            <li><span><b>Why B2C first:</b> more underserved by AI task management than B2B</span></li>
+            <li><span><b>Why not B2B first:</b> crowded, feature-rich competitors and long sales motions</span></li>
+            <li><span><b>Market progression:</b> start with prosumers, then migrate to SMB, then Enterprise, where revenue opportunities are far greater</span></li>
+            <li><span><b>Why not pure consumer:</b> consumer productivity apps hit a revenue ceiling</span></li>
+          </ul>
+        </div>
+      </div>
+      <aside class="notes"><ul>
+        <li>Solving for general task management, using AI to solve and as a differentiator.</li>
+        <li>0-1 build, new startup; assume some seed funding exists.</li>
+        <li>Start B2C prosumer, expecting it to serve as a wedge into SMB and then Enterprise, which hold far greater revenue opportunities.</li>
+        <li>Why: early-stage startup with limited funding; tough to immediately enter a crowded B2B space with feature-rich competitors and long, complex sales motions.</li>
+        <li>Why not pure consumer: consumer productivity apps have a ceiling and are hard to scale revenue.</li>
+        <li>B2C is also generally more underserved in task management using AI than B2B.</li>
+        <li>Begin in the US market (most familiar to our team), then scale globally.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 3 Value & objectives -->
+    <section class="slide sec-value" data-name="Value & objectives" data-sec="value">
+      <div class="inner">
+        <div class="eyebrow">02 · Product value &amp; objectives</div>
+        <h2>Our new flagship product should empower busy people <span class="serif">to focus on achieving their goals.</span></h2>
+        <div class="vpair">
+          <div class="vcol build"><div class="vlabel">How it helps our users</div>
+            <ul class="clean"><li>Lighten the mental load: capture, prioritize, carry out</li><li>Accountability in follow-through</li></ul></div>
+          <div class="vcol build"><div class="vlabel">Why it matters to our company</div>
+            <p class="vtext">Differentiated, widely adopted flagship in prosumer, positioned to pivot into B2B</p></div>
+        </div>
+        <div class="vmission build"><div class="vlabel">Mission statement</div>
+          <p class="mission">Clear mental clutter so busy people can focus on <em>what matters most.</em></p></div>
+        <div class="vobj build"><div class="vlabel">Objectives in focus</div>
+          <div class="track">
+            <div class="tstep now"><span class="twhen">Now</span><span class="twhat">Acquisition + early activation</span></div>
+            <div class="tline" aria-hidden="true"></div>
+            <div class="tstep later"><span class="twhen">Later</span><span class="twhat">Retention</span></div>
+          </div></div>
+        <div class="hint" id="valueHint">Click or press → to reveal each card</div>
+      </div>
+      <aside class="notes"><ul>
+        <li>User problems: lightens the mental load by helping capture, prioritize, and carry out tasks; offers accountability in task follow-through.</li>
+        <li>Company: needs a heavily differentiated, widely adopted flagship product in the prosumer space, with strategic positioning to pivot into B2B later.</li>
+        <li>Mission: clear mental clutter so busy people can focus on what matters most.</li>
+        <li>Focus objective: now acquisition + early activation; later retention (important for the B2B pivot).</li>
+      </ul></aside>
+    </section>
+
+    <!-- 4 Ecosystem -->
+    <section class="slide sec-seg" data-name="Ecosystem" data-sec="seg">
+      <div class="inner">
+        <div class="eyebrow">03 · Target segments · Ecosystem (B2C)</div>
+        <div class="swap-title"><h2 class="t-default">Who's in <span class="serif">the ecosystem</span></h2><h2 class="t-focus">We will focus <span class="serif">on individuals</span></h2></div>
+        <div class="eco-wrap">
+          <svg class="eco-svg" viewBox="0 0 1120 500" role="img" aria-label="Ecosystem diagram: three stakeholder clusters, Platform (AI model providers, integration partners, internal product team), Users (individuals and collaborators) and Growth (influencers), each connected to the AI-native task list at the center.">
+            <defs>
+              <linearGradient id="pg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4B35B5"/><stop offset=".6" stop-color="#7457DB"/><stop offset="1" stop-color="#F59AB5"/></linearGradient>
+            </defs>
+            <!-- regions -->
+            <g class="fade"><rect class="reg-pl" x="10" y="10" width="330" height="330" rx="20"/><text class="rl" x="30" y="38">PLATFORM</text></g>
+            <g class="fade-soft"><rect class="reg-us" x="780" y="10" width="330" height="330" rx="20"/><text class="rl" x="800" y="38">USERS</text></g>
+            <g class="fade"><rect class="reg-gr" x="380" y="380" width="360" height="112" rx="20"/><text class="rl" x="398" y="408">GROWTH</text></g>
+            <!-- connectors -->
+            <g class="fade"><path class="conn c-pl" d="M340 174 H496"/><circle class="dot-pl" cx="340" cy="174" r="5"/></g>
+            <g><path class="conn c-us" d="M780 174 H624"/><circle class="dot-us" cx="780" cy="174" r="5"/></g>
+            <g class="fade"><path class="conn c-gr" d="M560 380 V238"/><circle class="dot-gr" cx="560" cy="380" r="5"/></g>
+            <!-- product -->
+            <text class="plabel" x="560" y="96" text-anchor="middle">AI-native task list</text>
+            <rect x="496" y="110" width="128" height="128" rx="30" fill="url(#pg)"/>
+            <path d="M528 152l8 8 14-16M566 154h26M528 190l8 8 14-16M566 192h26" fill="none" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- platform nodes -->
+            <g class="fade pl" transform="translate(30,50)"><rect class="nbox" width="290" height="78" rx="14"/><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><path d="M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2z"/></g><text class="nt" x="68" y="34">AI model providers</text><text class="ns" x="68" y="56">LLMs powering automation</text></g>
+            <g class="fade pl" transform="translate(30,148)"><rect class="nbox" width="290" height="78" rx="14"/><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><path d="M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0V7zM12 17v5"/></g><text class="nt" x="68" y="28">Integration partners</text><text class="ns" x="68" y="48">Calendar, email, messaging</text><text class="ns" x="68" y="66">Instacart, TaskRabbit, agents</text></g>
+            <g class="fade pl" transform="translate(30,246)"><rect class="nbox" width="290" height="78" rx="14"/><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></g><text class="nt" x="68" y="34">Internal product team</text><text class="ns" x="68" y="56">Building and iterating</text></g>
+            <!-- user nodes -->
+            <g class="us" transform="translate(800,70)"><g class="indiv pri"><rect class="nbox" width="290" height="78" rx="14"/><rect class="pchip" x="196" y="-13" width="84" height="26" rx="7"/><text class="pchipt" x="238" y="5" text-anchor="middle">Priority</text><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></g><text class="nt" x="68" y="34">Individuals</text><text class="ns" x="68" y="56">Demand side</text></g></g>
+            <g class="fade us" transform="translate(800,230)"><rect class="nbox" width="290" height="78" rx="14"/><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><circle cx="9" cy="8" r="3.5"/><circle cx="17" cy="9" r="3"/><path d="M2 21c0-3.8 3-6 7-6s7 2.2 7 6"/><path d="M16 15c3 0 6 1.8 6 5"/></g><text class="nt" x="68" y="34">Collaborators</text><text class="ns" x="68" y="56">Partners, family, friends</text></g>
+            <!-- growth node -->
+            <g class="fade gr" transform="translate(478,396)"><rect class="nbox" width="250" height="78" rx="14"/><rect class="ibg" x="14" y="19" width="40" height="40" rx="10"/><g class="ico" transform="translate(22,27)"><path d="M3 10v4h3l9 5V5L6 10H3z"/><path d="M19 9a4 4 0 0 1 0 6"/></g><text class="nt" x="68" y="34">Influencers</text><text class="ns" x="68" y="56">Drive awareness</text></g>
+          </svg>
+
+        </div>
+        <div class="hint">Click to focus on individuals</div>
+        <span class="build focus-trigger" hidden></span>
+      </div>
+      <aside class="notes"><ul>
+        <li>Individuals: consumers managing their personal and/or work tasks.</li>
+        <li>Collaborators: people individuals share or delegate tasks to, such as partners, family, friends.</li>
+        <li>Integration partners: calendar, email and messaging apps, plus task completion partners like Instacart, TaskRabbit, third-party agents.</li>
+        <li>AI model providers: LLM providers powering the product's automation.</li>
+        <li>Internal product team: the people building and iterating on the product.</li>
+        <li>Influencers / promoters: creators and productivity voices who drive awareness and acquisition.</li>
+        <li>Priority: Individuals, as they represent the demand side and directly fuel the acquisition / early activation objective.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 5 Segments heatmap -->
+    <section class="slide sec-seg" data-name="Segments" data-sec="seg">
+      <div class="inner">
+        <div class="eyebrow">03 · Target segments · Individuals</div>
+        <div class="after-deck" style="justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+          <h2>Among individuals, we will focus on <span class="serif">“busy solo operators”</span></h2>
+          <div class="chips"><span class="small" style="align-self:center">Heuristics</span><span class="chip">Life stage</span><span class="chip">Motivation</span><span class="chip">Attitude to AI</span></div>
+        </div>
+        <div class="seg-stage">
+        <div class="persona-deck">
+          <article class="pcard" data-i="1">
+            <div class="pc-left"><svg class="pav" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="48" fill="#E9E5DD"/><path d="M16 96c3-17 16-25 32-25s29 8 32 25z" fill="#5E5955"/><rect x="42" y="56" width="12" height="12" rx="4" fill="#D9A982"/><circle cx="48" cy="42" r="16" fill="#D9A982"/><path d="M31 41c0-13 7-20 17-20s17 7 17 20c-3-7-9-10-17-10s-14 3-17 10z" fill="#2B2220"/></svg><div class="pc-who"><div class="pc-seg">Segment 1 of 4 </div><div class="pc-segname">Overloaded employees</div><div class="pc-name">Arjun, 31</div><div class="pc-role">Product marketing manager at a 2,000-person company</div></div></div>
+            <div class="pc-right"><div class="label">Behaviors</div><ul class="clean"><li>Lives in Slack, Outlook and back-to-back meetings</li><li>Company Asana tracks team work; personal to-dos sit in Notes</li><li>Tries AI tools at work but has no single system</li></ul><div class="pchars"><span class="pchar hi"><b>Reach</b>High</span><span class="pchar md"><b>Underserved</b>Medium</span><span class="pchar md"><b>Willing to pay</b>Medium</span></div><p class="pc-quote">“My company tools track the team’s work, not mine.”</p></div>
+          </article>
+          <article class="pcard pri" data-i="2">
+            <div class="pc-left"><svg class="pav" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="48" fill="#E6DAFD"/><path d="M16 96c3-17 16-25 32-25s29 8 32 25z" fill="#714CB6"/><rect x="42" y="56" width="12" height="12" rx="4" fill="#C98F6B"/><circle cx="48" cy="42" r="16" fill="#C98F6B"/><path d="M29 46c-1-16 7-25 19-25s20 9 19 25c-1 6-3 9-5 10V40c-4-5-9-7-14-7s-10 2-14 7v16c-2-1-4-4-5-10z" fill="#3A2A24"/></svg><div class="pc-who"><div class="pc-seg">Segment 2 of 4 <span class="chip acc">Priority</span></div><div class="pc-segname">Busy solo operators</div><div class="pc-name">Maya, 43</div><div class="pc-role">Independent brand strategist with 5 clients</div></div></div>
+            <div class="pc-right"><div class="label">Behaviors</div><ul class="clean"><li>Each client has its own Slack, email thread and WhatsApp</li><li>Makes promises on calls and between meetings, on the go</li><li>Abandoned Todoist and Notion; Sunday nights go to catch-up</li></ul><div class="pchars"><span class="pchar md"><b>Reach</b>Medium</span><span class="pchar hi"><b>Underserved</b>High</span><span class="pchar hi"><b>Willing to pay</b>High</span></div><p class="pc-quote">“Keeping a task app updated became another job.”</p></div>
+          </article>
+          <article class="pcard" data-i="3">
+            <div class="pc-left"><svg class="pav" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="48" fill="#FFE1CF"/><path d="M16 96c3-17 16-25 32-25s29 8 32 25z" fill="#D0683F"/><rect x="42" y="56" width="12" height="12" rx="4" fill="#E6B992"/><circle cx="48" cy="42" r="16" fill="#E6B992"/><path d="M30 42c-3-10 2-21 10-22 3-4 13-4 16 0 8 1 13 12 10 22-2-6-6-9-9-10-6 3-14 3-20 0-3 1-6 4-7 10z" fill="#6B4A33"/></svg><div class="pc-who"><div class="pc-seg">Segment 3 of 4 </div><div class="pc-segname">Family organizers</div><div class="pc-name">Dana, 37</div><div class="pc-role">Parent of three, runs the household logistics</div></div></div>
+            <div class="pc-right"><div class="label">Behaviors</div><ul class="clean"><li>Tracks school forms, appointments, bills and errands</li><li>Shared calendar with partner, lists on the fridge</li><li>Prefers free apps; light AI user</li></ul><div class="pchars"><span class="pchar hi"><b>Reach</b>High</span><span class="pchar hi"><b>Underserved</b>High</span><span class="pchar lo"><b>Willing to pay</b>Low</span></div><p class="pc-quote">“I’m the household’s memory.”</p></div>
+          </article>
+          <article class="pcard" data-i="4">
+            <div class="pc-left"><svg class="pav" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="48" fill="#DDEBE6"/><path d="M16 96c3-17 16-25 32-25s29 8 32 25z" fill="#3F7F6E"/><rect x="42" y="56" width="12" height="12" rx="4" fill="#B57E5C"/><circle cx="48" cy="42" r="16" fill="#B57E5C"/><path d="M31 41c0-13 7-20 17-20s17 7 17 20c-3-7-9-10-17-10s-14 3-17 10z" fill="#1F1A18"/></svg><div class="pc-who"><div class="pc-seg">Segment 4 of 4 </div><div class="pc-segname">Proactive students</div><div class="pc-name">Leo, 20</div><div class="pc-role">Engineering junior with a part-time job</div></div></div>
+            <div class="pc-right"><div class="label">Behaviors</div><ul class="clean"><li>Juggles coursework, shifts and internship applications</li><li>Uses Notion templates and Google Calendar</li><li>Uses ChatGPT for school; won’t pay for productivity apps</li></ul><div class="pchars"><span class="pchar lo"><b>Reach</b>Low</span><span class="pchar md"><b>Underserved</b>Medium</span><span class="pchar lo"><b>Willing to pay</b>Low</span></div><p class="pc-quote">“I need to get my act together before recruiting season.”</p></div>
+          </article>
+        </div>
+        <div class="seg-table">
+        <div class="window">
+          <div class="wbar"><i></i><i></i><i></i><span>segments · reach × underserved × willingness to pay</span></div>
+          <div class="tbl-wrap">
+            <table class="heat lite">
+              <thead><tr><th>Segment</th><th>Reach</th><th>Underserved</th><th>Willingness to pay</th><th>Score</th></tr></thead>
+              <tbody>
+                <tr><td><div class="name">Overloaded employees</div><div class="desc">Work + life; employer tools cover team work only</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:42%"><span class="v">12</span></div></td></tr>
+                <tr class="pick"><td><div class="name">Busy solo operators <span class="chip acc">Priority</span></div><div class="desc">Freelancers, consultants, indie reps, agents, creators</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell score"><div class="cellbox top"><span class="v">18</span></div></td></tr>
+                <tr><td><div class="name">Family organizers</div><div class="desc">Family and home logistics: school, bills, errands</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:32%"><span class="v">9</span></div></td></tr>
+                <tr><td><div class="name">Proactive students</div><div class="desc">Coursework, deadlines, jobs, applications</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:5%"><span class="v">2</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="legend"><span>Score = Reach × Underserved × Willingness to pay (High 3 · Medium 2 · Low 1)</span></div>
+        </div>
+        </div>
+        <div class="hint deck-hint"><button type="button" class="btn deck-prev">← Previous</button><button type="button" class="btn deck-next">Next →</button><span>or click the slide / use ← → keys</span></div>
+        <span class="build" hidden></span><span class="build" hidden></span><span class="build" hidden></span><span class="build" hidden></span>
+      </div>
+      <aside class="notes"><ul>
+        <li>Personas (Arjun, Maya, Dana, Leo) are illustrative examples, not research participants.</li>
+        <li><b>Overloaded employees</b> (12): employees juggling work and life; tasks pour in from email, Slack/Teams, meetings and managers. Employer PM tools only cover team work; heavy pressure to adopt AI. Reach High (largest group). Underserved Medium: work tools and AI assistants in Slack, Notion, Microsoft partly cover this. WTP Medium: many expect their employer to pay.</li>
+        <li><b>Busy solo operators</b> (18): freelancers, consultants, independent sales reps, real estate agents, creators. Run client work, sales, invoicing and admin alone, with tasks across email, texts, calls and DMs; often on the go. Reach Medium (large, growing independent workforce). Underserved High: team tools are overkill, consumer apps too simple, no assistant. WTP High: dropped tasks cost revenue; tools are tax-deductible. This segment has the most potential for us.</li>
+        <li><b>Family organizers</b> (9): run family and home logistics; less likely to be heavy AI users. Reach High. Underserved High: family tools fragmented, little AI for life admin. WTP Low: price-sensitive.</li>
+        <li><b>Proactive students</b> (2): juggling new responsibilities; learning AI at school. Reach Low: population ceiling, only a subset ambitious enough. Underserved Medium: free tools and school systems. WTP Low.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 6 Journey -->
+    <section class="slide sec-pain" data-name="User journey" data-sec="pain">
+      <div class="inner">
+        <div class="eyebrow">04 · Pain points · Busy solo operators</div>
+        <h2>Pain points <span class="serif">across the user journey</span></h2>
+        <div class="phases">
+          <div class="phase once">
+            <div class="phead">At project start</div>
+            <div class="jstep"><div class="jnum">1</div><div class="card"><h3>Project planning</h3><p>End-to-end plans with owners are complex and time-consuming</p></div></div>
+          </div>
+          <div class="parrow" aria-hidden="true">→</div>
+          <div class="phase daily">
+            <div class="phead">Daily</div>
+            <div class="dpair">
+              <div class="jstep"><div class="jnum">2</div><div class="card"><h3>Daily morning triage</h3><p>User has to mine a stack of built-up emails, DMs and voicemails to triage what's most important before they can even start their day</p></div></div>
+              <div class="darrow" aria-hidden="true">→</div>
+              <div class="jstep pick"><div class="jnum">3</div><div class="card"><span class="tag">Biggest pain</span><h3>Doing the work &amp; on the go</h3><p>New tasks surface throughout the day via calls, emails, messages and in-person meetings. User may be switching between multiple apps or on the go physically.</p></div></div>
+            </div>
+            <div class="loop" aria-hidden="true"></div>
+            <div class="loop-label">Repeats every day</div>
+          </div>
+          <div class="phase adhoc">
+            <div class="phead">Ad hoc<small>Runs alongside daily work</small></div>
+            <div class="aitems">
+              <div class="aitem"><span class="jnum sm">4</span>Getting paid</div>
+              <div class="aitem"><span class="jnum sm">5</span>Prospecting</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes"><ul>
+        <li>Project planning: creating up-front, end-to-end project plans with owners of each step is complex, detailed, and time-consuming.</li>
+        <li>Daily morning triage: important requests are scattered across email, texts, DMs and voicemails, so urgent items get buried and it takes time to figure out what needs attention.</li>
+        <li>Doing the work and on the go: commitments made mid-call or between appointments aren't captured well or are disorganized, because there's little time to write them down. Promised follow-ups may get forgotten.</li>
+        <li>Getting paid: invoicing, payment chasing and paperwork get pushed to evenings or delayed, slowing cash flow and eating into personal time, causing burnout.</li>
+        <li>Prospecting (ongoing): lead follow-ups and business development fall through the cracks when client work spikes, creating feast-or-famine income cycles.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 7 Pain prioritization -->
+    <section class="slide sec-pain" data-name="Pain prioritization" data-sec="pain">
+      <div class="inner">
+        <div class="eyebrow">04 · Prioritizing pain points</div>
+        <div class="drill-stage">
+        <div class="drill-a">
+        <div class="window">
+          <div class="wbar"><i></i><i></i><i></i><span>pain points · frequency × severity</span></div>
+          <div class="tbl-wrap">
+            <table class="heat lite">
+              <thead><tr><th>Pain point</th><th>Frequency</th><th>Severity</th><th>Score</th><th>Tiebreakers</th></tr></thead>
+              <tbody>
+                <tr><td><div class="name">1. Project planning</div><div class="desc">Complex, detailed up-front work</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:16%"><span class="v">2</span></div></td>
+                  <td><div class="note">Medium AI fit: users want control</div></td></tr>
+                <tr><td><div class="name">2. Daily morning triage</div><div class="desc">Requests buried across channels</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell score"><div class="cellbox on" style="--p:62%"><span class="v">6</span></div></td>
+                  <td><div class="note">High AI fit</div></td></tr>
+                <tr class="pick"><td><div class="name">3. Doing the work &amp; on the go <span class="chip acc">Priority</span></div><div class="desc">Capturing every commitment into a real-time prioritized list</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell score"><div class="cellbox top"><span class="v">9</span></div></td>
+                  <td><div class="note">High AI fit · notetakers are fragmented, few turn notes into a task list</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="legend"><span>Score = Frequency × Severity (High 3 · Medium 2 · Low 1) · tiebreakers: AI suitability, competition</span></div>
+        <div class="hint">Click to select the priority · click again to see its jobs to be done</div>
+        </div>
+        <div class="drill-b">
+          <div class="window prow"><div class="tbl-wrap"><table class="heat lite"><tbody><tr class="pick"><td><div class="name">3. Doing the work &amp; on the go <span class="chip acc">Priority</span></div><div class="desc">Capturing every commitment into a real-time prioritized list</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell score"><div class="cellbox top"><span class="v">9</span></div></td>
+                  <td><div class="note">High AI fit · notetakers are fragmented, few turn notes into a task list</div></td></tr></tbody></table></div></div>
+          <div class="jhead">Sample jobs to be done</div>
+          <ul class="jlist"><li style="--k:0"><span class="jchk" aria-hidden="true"></span>Reply to client emails, texts, messages</li><li style="--k:1"><span class="jchk" aria-hidden="true"></span>Coordinate collaborators, suppliers, subcontractors</li><li style="--k:2"><span class="jchk" aria-hidden="true"></span>Prepare and send deliverables</li><li style="--k:3"><span class="jchk" aria-hidden="true"></span>Manage changing scope and deadlines across clients</li><li style="--k:4"><span class="jchk" aria-hidden="true"></span>Schedule meetings or site visits</li><li style="--k:5"><span class="jchk" aria-hidden="true"></span>Organize and update documents and notes</li></ul>
+        </div>
+        </div>
+        <span class="build row-focus" hidden></span><span class="build drill" hidden></span>
+      </div>
+      <aside class="notes"><ul>
+        <li>Project planning (2): medium AI fit; users want control over their plan, and trust takes time to build.</li>
+        <li>Morning triage (6): high AI fit; AI can scan email, texts and DMs, summarize, flag what's urgent, and even respond.</li>
+        <li>Doing the work and on the go (9): high AI fit; voice transcription and parsing calls, emails, messages for tasks is a core strength. Competitive opportunity: notetaker space is heavy but fragmented and channel-specific, limited in converting notes to a holistic task list.</li>
+        <li>Getting paid (2).</li>
+        <li>Pipeline and prospecting (6): heavily competitive environment with AI tools already; not attractive.</li>
+      
+        <li>Communication: reply to client emails, texts and other messages; coordinate with collaborators or suppliers, subcontractors; send status updates and progress reports.</li>
+        <li>Core client work: capture client feedback and make revisions; prepare and send deliverables.</li>
+        <li>Project coordination: manage changing scope, timelines and deadlines across several clients; purchase materials, tools, or platform licenses; schedule meetings or site visits.</li>
+        <li>Admin: manage budget impacts; organize and update documents and notes.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 8 JTBD -->
+
+    <!-- 9 Solutions -->
+    <section class="slide dark-slide sec-sol" data-name="Solutions" data-sec="sol" data-tone="dark">
+      <div class="inner">
+        <div class="eyebrow">05 · Potential solutions</div>
+        <h2>Three solutions <span class="serif">explored</span></h2>
+        <div class="grid g3">
+          <div class="tile hl">
+            <div class="sol-num">Solution 1</div>
+            <div class="big">Cross-channel task collector &amp; list generator</div>
+            <div style="color:var(--ink-2)">Agent parses conversations and generates a task list in real time</div>
+            <div class="chips"><span class="chip">Email</span><span class="chip">Phone</span><span class="chip">Video</span><span class="chip">Live</span><span class="chip">Texts</span><span class="chip">Slack</span><span class="chip">Teams</span></div>
+            <div class="board" aria-label="Task board columns">
+              <div class="col"><span>Backlog</span><i></i><i></i><i></i></div>
+              <div class="col"><span>To Do Today</span><i></i><i></i></div>
+              <div class="col"><span>In Progress</span><i></i></div>
+              <div class="col"><span>Blocked</span><i></i></div>
+              <div class="col"><span>Done</span><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="tile">
+            <div class="sol-num">Solution 2</div>
+            <div class="big">One-press voice / text capture</div>
+            <div style="color:var(--ink-2)">Action Button or shortcut → speak → captured, no unlocking</div>
+            <div class="press" aria-hidden="true"><div class="key"><b></b></div>
+              <div class="wave"><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:90%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:40%"></i></div></div>
+            <ul class="clean"><li>Enriched with calendar and location</li><li>Prompts for due date, collaborators</li><li>Send to Trello, Notion, docs</li></ul>
+          </div>
+          <div class="tile">
+            <div class="sol-num">Solution 3</div>
+            <div class="big">Agent-owned task category</div>
+            <div style="color:var(--ink-2)">Agent listens for preset, approved tasks and handles them</div>
+            <ul class="clean"><li>Simple email / message responses</li><li>Scheduling meetings</li></ul>
+            <p class="small">Minimizes what the user has to track</p>
+          </div>
+        </div>
+      </div>
+      <aside class="notes"><ul>
+        <li><b>1. Cross-channel task collector & list generator:</b> agent integrates with cross-channel discussions and generates / updates the task list in real time. Parses email, phone, video or live conversation transcripts, texts, or Slack/Teams to gather tasks, deadlines, and roughly prioritize. Generates a suggested board (Backlog, To Do Today, In Progress, Blocked, Done) or calendar view the user can interact with.</li>
+        <li><b>2. One-press voice/text capture:</b> map the iPhone Action Button, Android shortcut, or laptop shortcut to instant voice capture. One press, speak the tasks, captured, without unlocking or opening apps. Enriched with recent calendar invites or location; user may be prompted for due date, collaborators, requesters; tasks can be sent to Trello, Notion, documents.</li>
+        <li><b>3. Agent-owned task category:</b> agent listens to specific channels for preset tasks it can handle independently and that the user has approved, minimizing tasks the user needs to track: simple email/message responses, scheduling meetings.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 10 Solution prioritization -->
+    <section class="slide dark-slide sec-sol" data-name="Solution prioritization" data-sec="sol" data-tone="dark">
+      <div class="inner">
+        <div class="eyebrow">05 · Prioritizing solutions</div>
+        <h2>Cross-channel collector <span class="serif">is the pick</span></h2>
+        <div class="window">
+          <div class="wbar"><i></i><i></i><i></i><span>solutions · impact × effort</span></div>
+          <div class="tbl-wrap">
+            <table class="heat lite">
+              <thead><tr><th>Solution</th><th>Impact</th><th>Effort</th><th>Score</th><th>Rationale</th></tr></thead>
+              <tbody>
+                <tr class="pick"><td><div class="name">Cross-channel collector <span class="chip acc">Top choice</span></div><div class="desc">MVP: Gmail, Slack + live call recordings</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">High</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox top"><span class="v">3</span></div></td>
+                  <td><div class="note">Most holistic, lasting impact; real edge over competitors</div></td></tr>
+                <tr><td><div class="name">One-press voice / text capture</div><div class="desc">Thin input feature; Todoist Ramble competes</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">Low</span><span class="n">3</span></div></td>
+                  <td class="cell score"><div class="cellbox on" style="--p:62%"><span class="v">3</span></div></td>
+                  <td><div class="note">Tie with #1 on low effort; not a strong wedge, add onto #1 later</div></td></tr>
+                <tr><td><div class="name">Agent-owned task category</div><div class="desc">Needs context: voice, tone, facts, documents</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">High</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:38%"><span class="v">2</span></div></td>
+                  <td><div class="note">Additive to #1; lower effort once integrations exist</div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="legend"><span>Score = Impact × Effort (effort: 3 = low effort, 1 = high effort)</span></div>
+        <span class="build row-focus" hidden></span>
+      </div>
+      <aside class="notes"><ul>
+        <li><b>Cross-channel collector</b>: Impact 3, High: makes tracking to-dos more seamless and hands-off. Effort 1, High: MVP integrations with Gmail, Slack + live call recordings (phone, video calls, in person); follow up with other email clients, MS Teams. Score 3, top choice: high effort but the most holistic and lasting impact, with real edge over direct competitors.</li>
+        <li><b>One-press capture</b>: Impact 1, Low: easier for on-the-go users but still requires logging each task; a thin task input feature with competitors like Todoist's Ramble. Effort 3, Low: no integrations needed. Score 3: tie with #1, influenced by low effort; not a strong enough initial wedge, can be added onto #1 later.</li>
+        <li><b>Agent-owned category</b>: Impact 2, Medium: narrows what the user tracks by taking over a subset, but the user still tracks the rest and must trust the AI. Effort 1, High: MVP of emails, messaging, scheduling, with flows to give the agent enough context (voice, tone, facts, documents). Score 2: additive to #1, lower effort if integrations are in place.</li>
+      </ul></aside>
+    </section>
+
+    <!-- Demo -->
+    <section class="slide dark-slide" data-name="Demo" data-tone="dark">
+      <div class="inner demo-stage">
+        <div class="eyebrow">06 · Demo</div>
+        <h2>Demo</h2>
+      </div>
+      <aside class="notes"><p>Demo placeholder.</p></aside>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="dots" id="dots" role="tablist" aria-label="Slides"></div>
+    <div class="hints"><span><kbd>←</kbd> <kbd>→</kbd> navigate</span><span><kbd>N</kbd> notes</span></div>
+    <div class="ctrls">
+      <span class="count" id="count">1 / 10</span>
+      <button class="btn" id="prev" aria-label="Previous slide">←</button>
+      <button class="btn" id="next" aria-label="Next slide">→</button>
+      <button class="btn" id="notesBtn" aria-expanded="false">Notes</button>
+    </div>
+  </footer>
+</div>
+
+<div class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head"><span class="eyebrow">Speaker notes</span><button class="btn" id="closeNotes">Close</button></div>
+  <div class="drawer-body" id="notesBody"></div>
+</div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.slide')];
+  const dots=document.getElementById('dots');
+  const count=document.getElementById('count');
+  const secName=document.getElementById('secName');
+  const drawer=document.getElementById('drawer');
+  const notesBody=document.getElementById('notesBody');
+  const notesBtn=document.getElementById('notesBtn');
+  let i=0,b=0;
+  const builds=s=>[...s.querySelectorAll('.build')];
+  const b2c=document.getElementById('b2cBtn');
+  function setBuilds(all){
+    const list=builds(slides[i]);
+    b=all?list.length:0;
+    list.forEach((el,k)=>el.classList.toggle('shown',k<b));
+    syncDeck();
+    if(b2c)b2c.setAttribute('aria-expanded',document.getElementById('rationale').classList.contains('shown'));
+  }
+  function reveal(){
+    const list=builds(slides[i]);
+    if(b<list.length){list[b].classList.add('shown');b++;syncDeck();if(list[b-1].classList.contains('drill'))runDrill(slides[i]);if(b2c)b2c.setAttribute('aria-expanded',document.getElementById('rationale').classList.contains('shown'));return true;}
+    return false;
+  }
+  function next(){ if(!reveal()) go(i+1); }
+  function runDrill(sl){
+    if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const row=sl.querySelector('.drill-a tr.pick'),box=sl.querySelector('.prow');
+    if(!row||!box||!box.animate)return;
+    const z=parseFloat(sl.querySelector('.inner').style.zoom)||1;
+    const dy=(row.getBoundingClientRect().top-box.getBoundingClientRect().top)/z;
+    box.animate([{transform:'translateY('+dy+'px)'},{transform:'translateY(0)'}],{duration:750,delay:120,easing:'cubic-bezier(.2,.7,.2,1)',fill:'backwards'});
+  }
+  function syncDeck(){
+    slides.forEach(sl=>{
+      const deck=sl.querySelector('.persona-deck'); if(!deck)return;
+      const n=[...sl.querySelectorAll('.build.shown')].length;
+      const cards=[...deck.querySelectorAll('.pcard')];
+      cards.forEach((c,k)=>{
+        if(k<n){c.style.transform='translateX(-120%) rotate(-10deg)';c.style.opacity='0';c.style.zIndex=20;}
+        else{const d=k-n;c.style.transform='translate('+(d*16)+'px,'+(d*14)+'px) rotate('+(d*1.8)+'deg) scale('+(1-d*.03)+')';c.style.opacity=d>2?'0':'1';c.style.zIndex=10-d;}
+      });
+      sl.classList.toggle('table-on',n>=cards.length);
+      requestAnimationFrame(fit);
+    });
+  }
+  function unreveal(){
+    const list=builds(slides[i]);
+    if(b>0){b--;list[b].classList.remove('shown');syncDeck();if(b2c)b2c.setAttribute('aria-expanded',document.getElementById('rationale').classList.contains('shown'));return true;}
+    return false;
+  }
+  function prev(){ if(!unreveal()) go(i-1,true); }
+  function fit(){
+    slides.forEach(s=>{const inn=s.querySelector('.inner');if(inn)inn.style.zoom='';});
+    if(window.innerWidth<601)return;
+    const s=slides[i],inn=s.querySelector('.inner');if(!inn)return;
+    const cs=getComputedStyle(s);
+    const avail=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+    for(let t=0;t<3;t++){
+      const need=inn.getBoundingClientRect().height;
+      if(need<=avail+1)break;
+      const z=(parseFloat(inn.style.zoom)||1)*avail/need;
+      inn.style.zoom=Math.max(.5,z*0.99);
+    }
+  }
+  slides.forEach((s,k)=>{
+    const b=document.createElement('button');
+    b.setAttribute('aria-label','Go to slide '+(k+1)+': '+s.dataset.name);
+    b.addEventListener('click',()=>go(k));
+    dots.appendChild(b);
+  });
+  function go(n,showAll){
+    const prevI=i;
+    i=Math.max(0,Math.min(slides.length-1,n));
+    if(prevI===i&&n!==i&&!showAll)return;
+    slides.forEach((s,k)=>{s.classList.toggle('active',k===i);s.setAttribute('aria-hidden',k!==i);});
+    document.body.classList.toggle('dark',slides[i].dataset.tone==='dark');
+    document.body.dataset.sec=slides[i].dataset.sec||'';
+    [...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k===i));
+    count.textContent=(i+1)+' / '+slides.length;
+    secName.textContent=slides[i].dataset.name;
+    const n2=slides[i].querySelector('.notes');
+    notesBody.innerHTML=n2?n2.innerHTML:'<p>No notes.</p>';
+    try{history.replaceState(null,'','#s'+(i+1));}catch(e){}
+    setBuilds(!!showAll);
+    requestAnimationFrame(fit);
+  }
+  if(b2c)b2c.addEventListener('click',e=>{e.stopPropagation();const r=document.getElementById('rationale');const on=!r.classList.contains('shown');r.classList.toggle('shown',on);b=on?builds(slides[i]).length:0;b2c.setAttribute('aria-expanded',on);});
+  document.getElementById('stage').addEventListener('click',e=>{if(e.target.closest('button,a,input'))return;reveal();});
+  document.querySelectorAll('.deck-prev').forEach(x=>x.addEventListener('click',e=>{e.stopPropagation();prev();}));
+  document.querySelectorAll('.deck-next').forEach(x=>x.addEventListener('click',e=>{e.stopPropagation();next();}));
+  window.addEventListener('resize',()=>requestAnimationFrame(fit));
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>fit());
+  function toggleNotes(force){
+    const open=typeof force==='boolean'?force:!drawer.classList.contains('open');
+    drawer.classList.toggle('open',open);
+    drawer.setAttribute('aria-hidden',!open);
+    notesBtn.setAttribute('aria-expanded',open);
+  }
+  document.getElementById('prev').onclick=()=>prev();
+  document.getElementById('next').onclick=()=>next();
+  notesBtn.onclick=()=>toggleNotes();
+  document.getElementById('closeNotes').onclick=()=>toggleNotes(false);
+  document.addEventListener('keydown',e=>{
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    const k=e.key;
+    if(k==='ArrowRight'||k==='ArrowDown'||k==='j'||k===' '||k==='PageDown'){e.preventDefault();next();}
+    else if(k==='ArrowLeft'||k==='ArrowUp'||k==='k'||k==='PageUp'){e.preventDefault();prev();}
+    else if(k==='Home'){go(0);} else if(k==='End'){go(slides.length-1);}
+    else if(k==='n'||k==='N'){toggleNotes();} else if(k==='Escape'){toggleNotes(false);}
+  });
+  let sx=null,sy=null;
+  const stage=document.getElementById('stage');
+  stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY;},{passive:true});
+  stage.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)){dx<0?next():prev();}sx=null;},{passive:true});
+  const m=(location.hash||'').match(/^#s(\d+)$/);
+  go(m?parseInt(m[1],10)-1:0);
+})();
+</script>
+
+</body>
+</html>
