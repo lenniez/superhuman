@@ -397,3 +397,26 @@ body[data-sec="pain"] .bar,body[data-sec="pain"] .foot{border-color:#DFF3EF}
 .demo-link:hover{filter:brightness(.97)}
 .demo-link:focus-visible{outline:2px solid var(--lavender);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* About me: career timeline + passions */
+.career{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;position:relative}
+.career::before{content:"";position:absolute;left:0;right:0;top:9px;height:2px;background:linear-gradient(90deg,var(--lavender),var(--amethyst))}
+.career li{position:relative;display:flex;flex-direction:column;gap:6px;padding-top:30px;min-width:0}
+.career li::before{content:"";position:absolute;top:2px;left:0;width:16px;height:16px;border-radius:50%;background:var(--paper);border:3px solid var(--amethyst)}
+.career li.hl::before{background:var(--ember);border-color:var(--ember)}
+.career .yr{font-family:var(--mono);font-size:13px;color:var(--amethyst)}
+.career b{font-size:19px;font-weight:600;letter-spacing:-.015em;line-height:1.15}
+.career li>span:last-child{font-size:14px;line-height:1.4;color:var(--ink-2)}
+.passions{margin-top:30px}
+.passions .vlabel{margin-bottom:10px}
+.passions .tile{background:var(--paper);border-color:#E7F1EF}
+@media (max-width:900px){.career{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:22px}.career::before{display:none}}
+@media (max-width:560px){.career{grid-template-columns:1fr}}
+
+/* Product philosophy */
+.philo{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:0;max-width:980px}
+.philo li{display:flex;gap:22px;align-items:baseline;padding:18px 0;border-top:1px solid var(--line)}
+.philo li:last-child{border-bottom:1px solid var(--line)}
+.philo b{font-family:var(--mono);font-weight:500;font-size:15px;color:var(--amethyst);flex:none;width:30px}
+.philo span{font-size:clamp(17px,1.5vw,20px);line-height:1.4;color:var(--ink-2)}
+.philo strong{color:var(--ink);font-weight:600}
