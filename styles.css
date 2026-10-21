@@ -466,3 +466,8 @@ h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.
 .wins .label .co-logo b{font-size:13px}
 .co-logo.studio{background:#fff;border:1px solid var(--line)}
 .co-logo.studio img{width:30px;height:30px}
+/* logos fill their tile, edge to edge, like the Amex mark */
+.career .co-logo,.career .co-logo.studio{width:40px;height:40px;border:0;border-radius:8px;background:none;overflow:hidden}
+.career .co-logo img{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
+.career .co-logo.studio img{transform:none;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
+.career .co-logo b{display:grid;place-items:center;width:100%;height:100%;background:var(--cream);border-radius:8px}
