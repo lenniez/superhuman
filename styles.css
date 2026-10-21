@@ -539,3 +539,10 @@ h2.mission-h{font-size:clamp(42px,5vw,68px)}
 .career.vert{gap:clamp(12px,1.8vh,18px)}
 .about-grid{margin-top:clamp(12px,2.4vh,28px)}
 .demo-stage.hi h2{font-family:var(--sans);font-style:normal;font-weight:600;letter-spacing:-.04em}
+/* company / title on one line */
+.career.vert .cline{grid-column:2;display:flex;align-items:baseline;gap:8px;white-space:nowrap;min-width:0}
+.career.vert .cline b{font-size:clamp(19px,1.6vw,22px)}
+.career.vert .cline .sep{color:var(--line);font-size:clamp(19px,1.6vw,22px);font-weight:300}
+.career.vert .cline .role{margin:0;font-size:clamp(15px,1.2vw,17px)}
+.career.vert li{grid-template-rows:auto auto auto}
+.career.vert .co-logo{grid-row:2/span 2;align-self:center}
