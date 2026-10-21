@@ -434,7 +434,7 @@ body[data-sec="pain"] .bar,body[data-sec="pain"] .foot{border-color:#DFF3EF}
 @media (max-width:900px){.career.c4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:560px){.career.c4{grid-template-columns:1fr}}
 /* About split: mission emphasis, family, bigger wins */
-h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.035em;max-width:22ch}
+h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.035em;max-width:none}
 .mission-h + .about-k{margin-top:40px}
 .home{display:flex;align-items:center;gap:16px;margin-top:36px;padding-top:24px;border-top:1px solid var(--line)}
 .home .fam{display:flex;flex:none}
@@ -447,3 +447,20 @@ h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.
 .wins.big .tile{padding:24px 24px 26px;gap:10px}
 .wins.big .num{font-size:clamp(44px,4.4vw,64px)}
 .wins.big p{font-size:15px}
+/* company logos */
+.co-logo{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:10px;background:var(--paper);border:1px solid var(--line);margin-bottom:6px;overflow:hidden;flex:none}
+.co-logo img{width:26px;height:26px;display:block}
+.co-logo.amex{background:none;border:0;border-radius:8px}
+.co-logo.amex svg{width:40px;height:40px;display:block}
+.co-logo.studio{color:var(--amethyst);background:#E2F4F1;border-color:transparent}
+.co-logo.studio svg{width:22px;height:22px}
+.career li .co-logo{margin-top:2px}
+.wins .label .co-logo{width:26px;height:26px;border-radius:7px;margin:0 8px 0 0;vertical-align:middle}
+.wins .label .co-logo img{width:18px;height:18px}
+.wins .label{display:flex;align-items:center}
+/* Hi, I'm Lennie */
+.hi-wrap{display:flex;flex-direction:column;align-items:center;gap:28px}
+.hi-photo{width:clamp(150px,17vw,230px);height:clamp(150px,17vw,230px);border-radius:50%;object-fit:cover;border:5px solid rgba(255,255,255,.9);box-shadow:0 30px 60px -24px rgba(4,34,30,.7)}
+.demo-stage.hi h2{line-height:1}
+.co-logo b{font-size:18px;font-weight:700;color:var(--ink)}
+.wins .label .co-logo b{font-size:13px}
