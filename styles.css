@@ -471,3 +471,22 @@ h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.
 .career .co-logo img{width:100%;height:100%;object-fit:cover;transform:scale(1.18)}
 .career .co-logo.studio img{transform:none;background:#fff;box-shadow:inset 0 0 0 1px var(--line)}
 .career .co-logo b{display:grid;place-items:center;width:100%;height:100%;background:var(--cream);border-radius:8px}
+/* photo: no outline */
+.hi-photo{border:0}
+/* About slides: presentation-size type (body >= 18px, labels >= 15px) */
+.career .yr{font-size:15px}
+.career b{font-size:clamp(20px,1.7vw,24px)}
+.career li>span:last-child,.career.c4 li>span:last-child{font-size:clamp(16px,1.3vw,18px);line-height:1.4}
+.mission-h + .about-k,.about-k{font-size:15px}
+.home p{font-size:clamp(18px,1.5vw,21px)}
+.home .av{width:76px;height:76px}
+.home .av svg{width:100%;height:100%}
+.about-lede{font-size:clamp(18px,1.6vw,22px)}
+.wins .label{font-size:15px}
+.wins p,.wins.big p{font-size:clamp(16px,1.3vw,18px);line-height:1.45}
+.philo span{font-size:clamp(19px,1.7vw,24px)}
+.philo b{font-size:16px}
+h2.mission-h{font-size:clamp(42px,5vw,68px)}
+.mission-h + .about-k{margin-top:30px}
+.career.c4{margin-top:18px}
+.home{margin-top:24px;padding-top:20px}
