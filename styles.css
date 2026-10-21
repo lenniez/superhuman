@@ -420,3 +420,16 @@ body[data-sec="pain"] .bar,body[data-sec="pain"] .foot{border-color:#DFF3EF}
 .philo b{font-family:var(--mono);font-weight:500;font-size:15px;color:var(--amethyst);flex:none;width:30px}
 .philo span{font-size:clamp(17px,1.5vw,20px);line-height:1.4;color:var(--ink-2)}
 .philo strong{color:var(--ink);font-weight:600}
+/* About me v2 */
+.about-lede{margin:14px 0 0;max-width:880px;font-size:clamp(16px,1.35vw,19px);line-height:1.45;color:var(--ink-2)}
+.about-k{margin:20px 0 10px}
+.wins .tile{background:var(--paper);border-color:#E7F1EF;gap:6px;padding:18px 20px}
+.wins .tile.hl{border-color:var(--amethyst)}
+.wins .num{font-size:clamp(32px,3vw,44px);font-weight:600;letter-spacing:-.03em;line-height:1;color:var(--amethyst)}
+.wins .tile.hl .num{color:var(--mysteria)}
+.wins p{margin:0;font-size:14px;line-height:1.4;color:var(--ink-2)}
+.career.c4{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:24px}
+.career.c4 li>span:last-child{font-size:14px}
+.about-me{margin:18px 0 0;font-size:14px;color:var(--faint)}
+@media (max-width:900px){.career.c4{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.career.c4{grid-template-columns:1fr}}
