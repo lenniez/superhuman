@@ -50,9 +50,9 @@
   }
   function prev(){ if(!unreveal()) go(i-1,true); }
   function fit(){
-    slides.forEach(s=>{const inn=s.querySelector('.inner');if(inn)inn.style.zoom='';});
-    if(window.innerWidth<601)return;
     const s=slides[i],inn=s.querySelector('.inner');if(!inn)return;
+    inn.style.zoom='';
+    if(window.innerWidth<601)return;
     const cs=getComputedStyle(s);
     const avail=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
     for(let t=0;t<3;t++){
@@ -72,6 +72,7 @@
     const prevI=i;
     i=Math.max(0,Math.min(slides.length-1,n));
     if(prevI===i&&n!==i&&!showAll)return;
+    fit();
     slides.forEach((s,k)=>{s.classList.toggle('active',k===i);s.setAttribute('aria-hidden',k!==i);});
     document.body.classList.toggle('dark',slides[i].dataset.tone==='dark');
     document.body.dataset.sec=slides[i].dataset.sec||'';

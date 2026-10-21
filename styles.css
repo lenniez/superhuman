@@ -490,3 +490,25 @@ h2.mission-h{font-size:clamp(42px,5vw,68px)}
 .mission-h + .about-k{margin-top:30px}
 .career.c4{margin-top:18px}
 .home{margin-top:24px;padding-top:20px}
+
+/* smoother slide changes: outgoing fades fast, incoming fades in after a beat; no double exposure */
+.slide{transition:opacity .22s ease,visibility 0s linear .22s}
+.slide.active{transition:opacity .5s ease .14s,visibility 0s linear 0s}
+@keyframes rise{from{transform:translateY(10px);opacity:0}to{transform:none;opacity:1}}
+.slide.active .inner > *{animation:rise .6s cubic-bezier(.2,.7,.2,1) .14s both}
+.slide.active .inner > *:nth-child(2){animation-delay:.2s}
+.slide.active .inner > *:nth-child(3){animation-delay:.26s}
+.slide.active .inner > *:nth-child(4){animation-delay:.32s}
+.slide.active .inner > *:nth-child(5){animation-delay:.38s}
+.slide.active .inner > *:nth-child(n+6){animation-delay:.44s}
+.backdrop{transition:background-color .6s ease}
+.sky,.horizon{transition:opacity .6s ease}
+@media (prefers-reduced-motion:reduce){.slide,.slide.active{transition:none}.slide.active .inner > *{animation:none}}
+.slide.active .inner > .build{animation:none}
+/* metric labels on 0-to-scale cards */
+.wins .label .via{font-weight:600;letter-spacing:.04em;color:var(--amethyst);margin-left:6px}
+.wins .metrics{display:flex;gap:26px;align-items:flex-end;flex-wrap:wrap}
+.wins .m{display:flex;flex-direction:column;gap:4px}
+.wins .mlab{font-size:15px;font-weight:600;color:var(--ink)}
+.wins.big .num.sm{font-size:clamp(32px,3vw,44px)}
+.wins .tile p{margin-top:6px}
