@@ -715,3 +715,15 @@ h2.recap-h{font-size:clamp(34px,3.9vw,54px);line-height:1.08;max-width:24ch}
 .recap{margin-top:clamp(10px,2vh,24px)}
 .recap .tile{background:var(--paper);border-color:#E7F1EF;padding:22px 24px}
 .recap .big{font-size:clamp(20px,1.7vw,24px)}
+/* design rationale grid */
+.rgrid{gap:16px}
+.rtile{background:var(--paper);border-color:#E7F1EF;padding:22px 24px;gap:8px}
+.rtile .rnum{font-family:var(--mono);font-size:15px;color:var(--amethyst)}
+.rtile .big{font-size:clamp(19px,1.6vw,22px);line-height:1.2}
+.rtile p{margin:0;font-size:clamp(16px,1.3vw,18px);line-height:1.4;color:var(--ink-2)}
+.rlogos{display:flex;gap:8px;margin-top:4px}
+.rlogo{width:34px;height:34px;border-radius:9px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;overflow:hidden}
+.rlogo img,.rlogo svg{width:22px;height:22px;display:block}
+.rlogo b{font-size:15px}
+.rswatch{display:flex;gap:6px;margin-top:4px}
+.rswatch i{width:26px;height:26px;border-radius:50%;display:block}
