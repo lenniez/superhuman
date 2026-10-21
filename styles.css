@@ -556,3 +556,11 @@ h2.mission-h{font-size:clamp(42px,5vw,68px)}
 .slide .eyebrow::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ember);flex:none}
 .dark-slide .eyebrow{color:#fff;background:rgba(255,255,255,.14)}
 .demo-stage .eyebrow{align-self:center;justify-self:center}
+/* value slide: user + company stacked left, mission right, objectives full width below */
+.vgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:center}
+.vgrid .vpair{grid-template-columns:1fr;gap:18px}
+.vgrid .vcol,.vgrid .vcol + .vcol{padding:0;border:0}
+.vgrid .vcol + .vcol{padding-top:18px;border-top:1px solid #D6F2EC}
+.vgrid .vmission{border-block:0;border-left:1px solid #D6F2EC;padding:6px 0 6px clamp(24px,4vw,56px)}
+.sec-value .vobj{border-top:1px solid #D6F2EC;padding-top:clamp(14px,2.6vh,26px)}
+@media (max-width:800px){.vgrid{grid-template-columns:1fr}.vgrid .vmission{border-left:0;padding:0}}
