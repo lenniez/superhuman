@@ -464,3 +464,5 @@ h2.mission-h{font-size:clamp(44px,5.6vw,80px);line-height:1.02;letter-spacing:-.
 .demo-stage.hi h2{line-height:1}
 .co-logo b{font-size:18px;font-weight:700;color:var(--ink)}
 .wins .label .co-logo b{font-size:13px}
+.co-logo.studio{background:#fff;border:1px solid var(--line)}
+.co-logo.studio img{width:30px;height:30px}
