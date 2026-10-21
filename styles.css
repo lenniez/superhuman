@@ -538,3 +538,4 @@ h2.mission-h{font-size:clamp(42px,5vw,68px)}
 .about-left .home p{font-size:clamp(17px,1.4vw,19px)}
 .career.vert{gap:clamp(12px,1.8vh,18px)}
 .about-grid{margin-top:clamp(12px,2.4vh,28px)}
+.demo-stage.hi h2{font-family:var(--sans);font-style:normal;font-weight:600;letter-spacing:-.04em}
