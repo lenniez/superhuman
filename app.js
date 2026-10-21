@@ -78,7 +78,7 @@
     document.body.dataset.sec=slides[i].dataset.sec||'';
     [...dots.children].forEach((d,k)=>d.setAttribute('aria-current',k===i));
     count.textContent=(i+1)+' / '+slides.length;
-    secName.textContent=slides[i].dataset.name;
+    secName.textContent=i===0?'':slides[i].dataset.name;
     const n2=slides[i].querySelector('.notes');
     notesBody.innerHTML=n2?n2.innerHTML:'<p>No notes.</p>';
     try{history.replaceState(null,'','#s'+(i+1));}catch(e){}
