@@ -95,19 +95,18 @@
     const open=typeof force==='boolean'?force:!drawer.classList.contains('open');
     drawer.classList.toggle('open',open);
     drawer.setAttribute('aria-hidden',!open);
-    notesBtn.setAttribute('aria-expanded',open);
   }
   document.getElementById('prev').onclick=()=>prev();
   document.getElementById('next').onclick=()=>next();
-  notesBtn.onclick=()=>toggleNotes();
-  document.getElementById('closeNotes').onclick=()=>toggleNotes(false);
+  
+  
   document.addEventListener('keydown',e=>{
     if(e.metaKey||e.ctrlKey||e.altKey)return;
     const k=e.key;
     if(k==='ArrowRight'||k==='ArrowDown'||k==='j'||k===' '||k==='PageDown'){e.preventDefault();next();}
     else if(k==='ArrowLeft'||k==='ArrowUp'||k==='k'||k==='PageUp'){e.preventDefault();prev();}
     else if(k==='Home'){go(0);} else if(k==='End'){go(slides.length-1);}
-    else if(k==='n'||k==='N'){toggleNotes();} else if(k==='Escape'){toggleNotes(false);}
+    
   });
   let sx=null,sy=null;
   const stage=document.getElementById('stage');

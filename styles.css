@@ -761,3 +761,4 @@ body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
 .iph-status{padding:3px 8% 0 11%}
 .iph-status .sicons{gap:3px}
 .iph-status .sicons svg{height:clamp(5px,.52vw,7.5px)}
+.drawer{display:none!important}
