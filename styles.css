@@ -733,3 +733,14 @@ body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
 .hi-home p{font-size:clamp(15px,1.25vw,18px)}
 .hi-rule{margin-top:clamp(10px,2vh,22px)}
 .eco-svg .ns{font-size:16px}
+/* highlighted (priority) rows: clearly distinct */
+.heat tr.pick td,.prow .heat tr.pick td,.slide:has(.row-focus.shown) .heat tr.pick td{background:#D5F0E7}
+.heat tr.pick td:first-child,.prow .heat tr.pick td:first-child,.slide:has(.row-focus.shown) .heat tr.pick td:first-child{box-shadow:inset 6px 0 0 var(--amethyst)}
+.heat tr.pick .name{color:#0B4F45}
+.heat tr.pick td{border-bottom-color:#B9E3D6}
+/* journey: project start container white like Daily */
+.phase.once{background:var(--paper);border-color:#C6E6DC}
+.sec-sol .rtile{background:var(--paper);border-color:transparent}
+.sec-sol .rtile .big{color:var(--ink)}
+.sec-sol .rtile p{color:var(--ink-2)}
+.sec-sol .rtile .rnum{color:var(--amethyst)}
