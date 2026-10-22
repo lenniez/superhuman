@@ -818,3 +818,14 @@ body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
 .jf-card .jnum{display:none}
 .jf-card .card{border:2px solid var(--amethyst)!important;background:#EAFCF8;box-shadow:0 30px 60px -30px rgba(15,94,84,.5)}
 .jf-card .card h3{color:#0B4F45}
+/* slide 4: logo as tall as "Keeper", top-aligned with the first line */
+.kt{align-items:flex-start;font-size:clamp(40px,4.6vw,66px);gap:.28em}
+.kt h1{font-size:1em;line-height:1.02}
+.kt-logo{width:.86em;height:.86em;margin-top:.1em;border-radius:22%;box-shadow:0 12px 24px -12px rgba(4,34,30,.6)}
+/* persona avatar svg */
+svg.pav.maya{width:96px;height:96px;border-radius:50%;display:block}
+/* slide 7: highlight the chosen card itself, not the number */
+.sec-pain .jstep.pick .jnum{background:var(--paper)!important;color:var(--ink-2)!important;border:1px solid var(--line)!important;box-shadow:none!important}
+.sec-pain .jstep.pick .card{background:#D5F0E7!important;border-color:#5FB8A2!important}
+.sec-pain .jstep.pick .card h3{color:#0B4F45}
+.jf-card .card{background:#D5F0E7!important}
