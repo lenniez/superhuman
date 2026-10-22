@@ -744,3 +744,20 @@ body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
 .sec-sol .rtile .big{color:var(--ink)}
 .sec-sol .rtile p{color:var(--ink-2)}
 .sec-sol .rtile .rnum{color:var(--amethyst)}
+/* iPhone 18-style frame: flat titanium band, thin even bezels, Dynamic Island, camera control */
+.iph{padding:2.5px;border-radius:17.5%/8.2%;background:linear-gradient(90deg,#9A9893 0%,#D9D7D2 6%,#B8B6B0 14%,#C9C7C1 50%,#B8B6B0 86%,#D9D7D2 94%,#9A9893 100%);box-shadow:0 0 0 1px rgba(0,0,0,.45),inset 0 0 0 1px rgba(255,255,255,.35),0 34px 60px -24px rgba(0,0,0,.65)}
+.iph::before{inset:2.5px;border-radius:17%/8%;background:#050506}
+.iph-screen{margin:3.5%;border-radius:14%/6.6%}
+.iph-island{top:1.8%;width:31%;height:3.3%}
+.iph-status{height:clamp(20px,2.1vw,30px);padding:3px 10% 0 12%;font-weight:600}
+.iph .b{width:2.5px;background:linear-gradient(90deg,#8E8C87,#C9C7C1)}
+.iph .l1{left:-2px;top:17%;height:6%}
+.iph .l2{left:-2px;top:26%;height:10%}
+.iph .l3{left:-2px;top:38%;height:10%}
+.iph .r{right:-2px;top:28%;height:15%;background:linear-gradient(270deg,#8E8C87,#C9C7C1)}
+.iph::after{content:"";position:absolute;right:-2px;top:58%;height:8%;width:2.5px;border-radius:2px;background:linear-gradient(270deg,#7E7C78,#B3B1AC)}
+.iph-status .sicons{display:flex;align-items:center;gap:4px;color:#111}
+.iph-status .sicons svg{height:clamp(7px,.7vw,10px);width:auto;fill:currentColor}
+.iph-status{padding:3px 8% 0 11%}
+.iph-status .sicons{gap:3px}
+.iph-status .sicons svg{height:clamp(5px,.52vw,7.5px)}
