@@ -727,3 +727,6 @@ h2.recap-h{font-size:clamp(34px,3.9vw,54px);line-height:1.08;max-width:24ch}
 .rlogo b{font-size:15px}
 .rswatch{display:flex;gap:6px;margin-top:4px}
 .rswatch i{width:26px;height:26px;border-radius:50%;display:block}
+/* no pure-white slides: default light slides get the same soft green tint */
+.backdrop{background:#F5FBFA}
+body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
