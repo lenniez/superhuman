@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="styles.css?v=1022e">
+<link rel="stylesheet" href="styles.css?v=1022f">
 </head>
 <body>
 
@@ -21,7 +21,6 @@
   </header>
 
   <main class="stage" id="stage">
-
     <!-- Meet -->
     <section class="slide dark-slide" data-name="Hi, I’m Lennie" data-tone="dark">
       <div class="inner demo-stage hi">
@@ -55,44 +54,28 @@
       </ul></aside>
     </section>
 
-    <!-- About: 0 to scale -->
+    <!-- About: 0 to scale + philosophy -->
     <section class="slide" data-name="0 to scale">
       <div class="inner">
         <h2>For the last 5–6 years, I’ve built<br>B2B and AI products <span class="serif">from 0 → 1 → scale.</span></h2>
-        <p class="about-lede">I’ve taken three B2B and prosumer platforms and business lines from zero to scale.</p>
-        <div class="grid g3 wins big">
+        <div class="scale-grid">
+          <div class="sg-col">
+            <div class="vlabel">Three B2B and prosumer platforms, zero to scale</div>
+            <div class="wins stack">
           <div class="tile"><div class="label">Teachable · B2B suite</div><div class="metrics"><div class="m"><div class="num">$400K</div><span class="mlab">revenue in the first 8 months</span></div></div><p>Product suite powering B2B product sales and Enterprise use cases.</p></div>
           <div class="tile"><div class="label">HIFI Enterprise <span class="via">via 01 Labs</span></div><div class="metrics"><div class="m"><div class="num">$100M</div><span class="mlab">royalty revenue onboarded</span></div></div><p>Enterprise financial analytics for music accountants. Acquired by Block after $15M Series A.</p></div>
           <div class="tile"><div class="label">Big Room <span class="via">via 01 Labs</span></div><div class="metrics"><div class="m"><div class="num">10K</div><span class="mlab">users</span></div></div><p>AI video editing for prosumers, SMBs and corporate editing teams</p></div>
+            </div>
+          </div>
+          <div class="sg-col sg-right">
+            <div class="vlabel">My product philosophy</div>
+            <ol class="philo short">
+              <li><b>01</b><span><strong>Empower the impossible.</strong> The most successful products let users accomplish things they simply could not have done before.</span></li>
+              <li><b>02</b><span><strong>Minimal onboarding.</strong> The best products just work.</span></li>
+            </ol>
+          </div>
         </div>
       </div>
-      <aside class="notes"><ul>
-        <li>Spent the last 5–6 years building B2B and AI SaaS products, focused on 0 to 1 to scale.</li>
-        <li>Teachable’s B2B suite: zero to first $400K in sales revenue in 8 months.</li>
-        <li>HIFI Enterprise (acquired by Block): enterprise financial analytics for music accountants; captured $100M royalty revenue, led to a $15M fundraise and acquisition by Block.</li>
-        <li>Big Room: AI video editing for prosumers, SMBs and corporate editing teams; grew to first 10K users.</li>
-      </ul></aside>
-    </section>
-
-    <!-- About: product philosophy -->
-    <section class="slide" data-name="Product philosophy">
-      <div class="inner">
-        <h2>My Product <span class="serif">Philosophy</span></h2>
-        <ol class="philo">
-          <li><b>01</b><span><strong>Empower the impossible.</strong> The most successful products let users accomplish things they simply could not have done before.</span></li>
-          <li><b>02</b><span><strong>Minimal onboarding.</strong> The best products just work.</span></li>
-          <li><b>03</b><span><strong>Solve for right now.</strong> There are infinite ways to solve every user problem; choose what makes sense today.</span></li>
-          <li><b>04</b><span><strong>Get into the wild, fast.</strong> The sooner you get real-world feedback, the more likely you are to succeed.</span></li>
-          <li><b>05</b><span><strong>Build momentum.</strong> Success depends not just on product quality, but also on excitement within your team and your customers.</span></li>
-        </ol>
-      </div>
-      <aside class="notes"><ul>
-        <li>The most successful products empower users to accomplish things they simply would not have been able to do before.</li>
-        <li>The best products require zero onboarding: they just work.</li>
-        <li>There are infinite ways to solve every user problem; it’s about what makes sense right now.</li>
-        <li>The faster you get “in the wild” feedback, the more likely you are to succeed.</li>
-        <li>Success rests not only on product quality, but on momentum and excitement, within your team and your customer community.</li>
-      </ul></aside>
     </section>
 
     <!-- 1 Title -->
@@ -100,7 +83,7 @@
       <div class="inner">
         <div class="hero">
           <div class="hero-copy">
-            <h1>Design an<br><span class="serif">AI&#8209;native task list</span></h1>
+            <h1>Keeper: The only <span style="white-space:nowrap">to-do</span> list <span class="serif">that updates itself.</span></h1>
           </div>
           <div class="devices" aria-label="Keeper prototype on desktop and mobile">
             <div class="mbp"><div class="mbp-lid"><span class="mbp-cam" aria-hidden="true"></span><div class="mbp-screen"><img src="keeper-desktop-settings.png" alt="Keeper Settings on desktop: tracked channels and assistant settings" width="1600" height="1065"></div></div><div class="mbp-base" aria-hidden="true"><span></span></div></div>
@@ -111,30 +94,10 @@
       <aside class="notes"><p>Restate the prompt. On the right: the Keeper prototype: Settings on desktop, the To Do List on mobile.</p></aside>
     </section>
 
-    <!-- Agenda -->
-    <section class="slide" data-name="Agenda">
-      <div class="inner">
-        <div class="eyebrow">Agenda</div>
-        <div class="agenda-wrap">
-        <h2>How we'll <span class="serif">work through it</span></h2>
-        <ol class="agenda-list">
-          <li><b>01</b><span>Assumptions</span></li>
-          <li><b>02</b><span>Product value &amp; objectives</span></li>
-          <li><b>03</b><span>Target segments</span></li>
-          <li><b>04</b><span>Pain points</span></li>
-          <li><b>05</b><span>Solutions</span></li>
-          <li class="demo"><b>06</b><span>Demo</span></li>
-          <li><b>07</b><span>Design rationale</span></li>
-        </ol>
-        </div>
-      </div>
-      <aside class="notes"><p>Walk through the game plan and check in before starting.</p></aside>
-    </section>
-
     <!-- 2 Assumptions -->
     <section class="slide sec-assume" data-name="Assumptions" data-sec="assume">
       <div class="inner">
-        <div class="eyebrow">01 · Assumptions</div>
+        <div class="eyebrow">Assumptions</div>
         <h2>Let's start with a B2C prosumer-focused product in the US market, <span class="serif">within a new startup.</span></h2>
         <div class="grid g4">
           <div class="tile"><div class="label">Scope</div><div class="big">General task management</div><p class="small">AI to solve and as a differentiator</p></div>
@@ -164,41 +127,10 @@
       </ul></aside>
     </section>
 
-    <!-- 3 Value & objectives -->
-    <section class="slide sec-value" data-name="Value & objectives" data-sec="value">
-      <div class="inner">
-        <div class="eyebrow">02 · Product value &amp; objectives</div>
-        <h2>Our new flagship product should empower busy people <span class="serif">to focus on achieving their goals.</span></h2>
-        <div class="vgrid">
-        <div class="vpair">
-          <div class="vcol build"><div class="vlabel">How it helps our users</div>
-            <ul class="clean"><li>Lighten the mental load: capture, prioritize, carry out</li><li>Accountability in follow-through</li></ul></div>
-          <div class="vcol build"><div class="vlabel">Why it matters to our company</div>
-            <p class="vtext">Differentiated, widely adopted flagship in prosumer, positioned to pivot into B2B</p></div>
-        </div>
-        <div class="vmission build"><div class="vlabel">Mission statement</div>
-          <p class="mission">Clear mental clutter so busy people can focus on <em>what matters most.</em></p></div>
-        </div>
-        <div class="vobj build"><div class="vlabel">Objectives in focus</div>
-          <div class="track">
-            <div class="tstep now"><span class="twhen">Now</span><span class="twhat">Acquisition + early activation</span></div>
-            <div class="tline" aria-hidden="true"></div>
-            <div class="tstep later"><span class="twhen">Later</span><span class="twhat">Retention</span></div>
-          </div></div>
-        <div class="hint" id="valueHint">Click or press → to reveal each card</div>
-      </div>
-      <aside class="notes"><ul>
-        <li>User problems: lightens the mental load by helping capture, prioritize, and carry out tasks; offers accountability in task follow-through.</li>
-        <li>Company: needs a heavily differentiated, widely adopted flagship product in the prosumer space, with strategic positioning to pivot into B2B later.</li>
-        <li>Mission: clear mental clutter so busy people can focus on what matters most.</li>
-        <li>Focus objective: now acquisition + early activation; later retention (important for the B2B pivot).</li>
-      </ul></aside>
-    </section>
-
     <!-- 4 Ecosystem -->
     <section class="slide sec-seg" data-name="Ecosystem" data-sec="seg">
       <div class="inner">
-        <div class="eyebrow">03 · Target segments · Ecosystem (B2C)</div>
+        <div class="eyebrow">Target segments · Ecosystem (B2C)</div>
         <div class="swap-title"><h2 class="t-default">Who's in <span class="serif">the ecosystem</span></h2><h2 class="t-focus">We will focus <span class="serif">on individuals</span></h2></div>
         <div class="eco-wrap">
           <svg class="eco-svg" viewBox="0 0 1120 500" role="img" aria-label="Ecosystem diagram: three stakeholder clusters, Platform (AI model providers, integration partners, internal product team), Users (individuals and collaborators) and Growth (influencers), each connected to the AI-native task list at the center.">
@@ -243,10 +175,246 @@
       </ul></aside>
     </section>
 
+    <!-- Segments: table, then the solo operator persona -->
+    <section class="slide sec-seg seg-main" data-name="Segments" data-sec="seg">
+      <div class="inner">
+        <div class="eyebrow">Target segments · Individuals</div>
+        <h2>Among individuals, we will focus on <span class="serif">“busy solo operators”</span></h2>
+        <div class="segm-stage">
+          <div class="segm-table">
+        <div class="window">
+          <div class="wbar"><i></i><i></i><i></i><span>segments · reach × underserved × willingness to pay</span></div>
+          <div class="tbl-wrap">
+            <table class="heat lite">
+              <thead><tr><th>Segment</th><th>Reach</th><th>Underserved</th><th>Willingness to pay</th><th>Score</th></tr></thead>
+              <tbody>
+                <tr><td><div class="name">Overloaded employees</div><div class="desc">Work + life; employer tools cover team work only</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:42%"><span class="v">12</span></div></td></tr>
+                <tr class="pick"><td><div class="name">Busy solo operators <span class="chip acc">Priority</span></div><div class="desc">Freelancers, consultants, indie reps, agents, creators</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell score"><div class="cellbox top"><span class="v">18</span></div></td></tr>
+                <tr><td><div class="name">Family organizers</div><div class="desc">Family and home logistics: school, bills, errands</div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox on" style="--p:100%"><span class="v">High</span><span class="n">3</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:32%"><span class="v">9</span></div></td></tr>
+                <tr><td><div class="name">Proactive students</div><div class="desc">Coursework, deadlines, jobs, applications</div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:45%"><span class="v">Medium</span><span class="n">2</span></div></td>
+                  <td class="cell"><div class="cellbox" style="--p:10%"><span class="v">Low</span><span class="n">1</span></div></td>
+                  <td class="cell score"><div class="cellbox" style="--p:5%"><span class="v">2</span></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="legend"><span>Score = Reach × Underserved × Willingness to pay (High 3 · Medium 2 · Low 1)</span></div>
+          </div>
+          <div class="segm-card build"><article class="pcard pri">
+            <div class="pc-left"><svg class="pav" viewBox="0 0 96 96" aria-hidden="true"><circle cx="48" cy="48" r="48" fill="#DEFAF4"/><path d="M14 96c3-22 16-34 34-34s31 12 34 34z" fill="#127567"/><g transform="translate(0 6)"><circle cx="48" cy="42" r="16" fill="#C98F6B"/><path d="M29 46c-1-16 7-25 19-25s20 9 19 25c-1 6-3 9-5 10V40c-4-5-9-7-14-7s-10 2-14 7v16c-2-1-4-4-5-10z" fill="#3A2A24"/></g></svg><div class="pc-who"><div class="pc-seg">Segment 2 of 4 <span class="chip acc">Priority</span></div><div class="pc-segname">Busy solo operators</div><div class="pc-name">Maya, 43</div><div class="pc-role">Independent brand strategist with 5 clients</div></div></div>
+            <div class="pc-right"><div class="label">Behaviors</div><ul class="clean"><li>Each client has its own Slack, email thread and WhatsApp</li><li>Makes promises on calls and between meetings, on the go</li><li>Abandoned Todoist and Notion; Sunday nights go to catch-up</li></ul><div class="pchars"><span class="pchar md"><b>Reach</b>Medium</span><span class="pchar hi"><b>Underserved</b>High</span><span class="pchar hi"><b>Willing to pay</b>High</span></div><p class="pc-quote">“Keeping a task app updated became another job.”</p></div>
+          </article></div>
+        </div>
+        <div class="hint segm-hint">Click to meet the solo operator</div>
+      </div>
+    </section>
+
+    <!-- 6 Journey -->
+    <section class="slide sec-pain" data-name="Pain points" data-sec="pain">
+      <div class="inner">
+        <div class="eyebrow">Pain points · Busy solo operators</div>
+        <h2>Pain points across <span class="serif">the solo operator journey</span></h2>
+        <div class="phases">
+          <div class="phase once">
+            <div class="phead">At project start</div>
+            <div class="jstep"><div class="jnum">1</div><div class="card"><h3>Project planning</h3><p>Complex plans with many owners and steps</p></div></div>
+          </div>
+          <div class="parrow" aria-hidden="true">→</div>
+          <div class="phase daily">
+            <div class="phead">Daily</div>
+            <div class="dpair">
+              <div class="jstep"><div class="jnum">2</div><div class="card"><h3>Daily morning triage</h3><p>Priorities buried across emails, DMs and voicemails</p></div></div>
+              <div class="darrow" aria-hidden="true">→</div>
+              <div class="jstep pick"><div class="jnum">3</div><div class="card"><span class="tag">Biggest pain</span><h3>Continuous coordination on the go</h3><p>Tasks arrive all day by call, email and text, often on the go</p></div></div>
+            </div>
+            <div class="loop" aria-hidden="true"></div>
+            <div class="loop-label">Repeats every day</div>
+          </div>
+          <div class="phase adhoc">
+            <div class="phead">Ad hoc<small>Runs alongside daily work</small></div>
+            <div class="aitems">
+              <div class="aitem"><span class="jnum sm">4</span>Getting paid</div>
+              <div class="aitem"><span class="jnum sm">5</span>Prospecting</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="notes"><ul>
+        <li>Project planning: creating up-front, end-to-end project plans with owners of each step is complex, detailed, and time-consuming.</li>
+        <li>Daily morning triage: important requests are scattered across email, texts, DMs and voicemails, so urgent items get buried and it takes time to figure out what needs attention.</li>
+        <li>Continuous coordination on the go: commitments made mid-call or between appointments aren't captured well or are disorganized, because there's little time to write them down. Promised follow-ups may get forgotten.</li>
+        <li>Getting paid: invoicing, payment chasing and paperwork get pushed to evenings or delayed, slowing cash flow and eating into personal time, causing burnout.</li>
+        <li>Prospecting (ongoing): lead follow-ups and business development fall through the cracks when client work spikes, creating feast-or-famine income cycles.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 9 Solutions -->
+    <section class="slide dark-slide sec-sol" data-name="Solutions" data-sec="sol" data-tone="dark">
+      <div class="inner">
+        <div class="eyebrow">Potential solutions</div>
+        <h2>Three solutions <span class="serif">explored</span></h2>
+        <div class="grid g3">
+          <div class="tile hl sol-pick">
+            <div class="sol-num">Solution 1</div>
+            <div class="big">Cross-channel task collector &amp; list generator</div>
+            <div style="color:var(--ink-2)">Agent parses conversations and generates a task list in real time</div>
+            <div class="chips"><span class="chip">Email</span><span class="chip">Phone</span><span class="chip">Video</span><span class="chip">Live</span><span class="chip">Texts</span><span class="chip">Slack</span><span class="chip">Teams</span></div>
+          </div>
+          <div class="tile">
+            <div class="sol-num">Solution 2</div>
+            <div class="big">One-press voice / text capture</div>
+            <div style="color:var(--ink-2)">Action Button or shortcut → speak → captured, no unlocking</div>
+            <div class="press" aria-hidden="true"><div class="key"><b></b></div>
+              <div class="wave"><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:90%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:40%"></i></div></div>
+            <ul class="clean"><li>Enriched with calendar and location</li><li>Prompts for due date, collaborators</li></ul>
+          </div>
+          <div class="tile">
+            <div class="sol-num">Solution 3</div>
+            <div class="big">Agent-owned task category</div>
+            <div style="color:var(--ink-2)">Agent listens for preset, approved tasks and handles them</div>
+            <ul class="clean"><li>Simple email / message responses</li><li>Scheduling meetings</li></ul>
+          </div>
+        </div>
+      </div>
+      <aside class="notes"><ul>
+        <li><b>1. Cross-channel task collector & list generator:</b> agent integrates with cross-channel discussions and generates / updates the task list in real time. Parses email, phone, video or live conversation transcripts, texts, or Slack/Teams to gather tasks, deadlines, and roughly prioritize. Generates a suggested board (Backlog, To Do Today, In Progress, Blocked, Done) or calendar view the user can interact with.</li>
+        <li><b>2. One-press voice/text capture:</b> map the iPhone Action Button, Android shortcut, or laptop shortcut to instant voice capture. One press, speak the tasks, captured, without unlocking or opening apps. Enriched with recent calendar invites or location; user may be prompted for due date, collaborators, requesters; tasks can be sent to Trello, Notion, documents.</li>
+        <li><b>3. Agent-owned task category:</b> agent listens to specific channels for preset tasks it can handle independently and that the user has approved, minimizing tasks the user needs to track: simple email/message responses, scheduling meetings.</li>
+      </ul></aside>
+    </section>
+
+    <!-- Demo -->
+    <section class="slide dark-slide" data-name="Demo" data-tone="dark">
+      <div class="inner demo-stage">
+        <div class="eyebrow">Demo</div>
+        <h2>Demo</h2>
+        <a class="demo-link" href="https://lenniez.github.io/keeper/" target="_blank" rel="noopener">Open Prototype <span aria-hidden="true">↗</span></a>
+      </div>
+      <aside class="notes"><p>Demo placeholder.</p></aside>
+    </section>
+
+    <!-- AI through the user journey -->
+    <section class="slide dark-slide sec-sol" data-name="AI through the user journey" data-sec="sol" data-tone="dark">
+      <div class="inner">
+        <h2>AI through <span class="serif">the user journey</span></h2>
+      </div>
+    </section>
+
+    <!-- Design rationale -->
+    <section class="slide dark-slide sec-sol" data-name="Design rationale" data-sec="sol" data-tone="dark">
+      <div class="inner">
+        <h2>Design <span class="serif">rationale</span></h2>
+        <div class="grid g3 rgrid">
+          <div class="tile rtile"><div class="rnum">01</div><div class="big">Built for the car, the hallway and the kitchen, not just the desk.</div><p>Mobile first: one status at a time, swipe to finish, and voice capture for hands-free moments.</p></div>
+          <div class="tile rtile"><div class="rnum">02</div><div class="big">Builds trust before automation.</div><p>Every task links to its source and new tasks wait for review. The agent drafts before it ever sends.</p></div>
+          <div class="tile rtile"><div class="rnum">03</div><div class="big">It’s a to-do list, not a complex workflow tool.</div><p>Up Next, In Progress, Done. The product should feel like a list in a notebook.</p></div>
+          <div class="tile rtile"><div class="rnum">04</div><div class="big">Borrowed what works from competitors.</div><p>Superhuman Mail’s response drafts, Otter’s backlinking to source content, ChatGPT’s voice mode, Todoist’s simplicity.</p><div class="rlogos"><span class="rlogo" title="Superhuman"><img src="https://www.google.com/s2/favicons?domain=superhuman.com&amp;sz=128" alt="Superhuman" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;S&lt;/b&gt;'"></span><span class="rlogo" title="Otter"><img src="https://www.google.com/s2/favicons?domain=otter.ai&amp;sz=128" alt="Otter" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;O&lt;/b&gt;'"></span><span class="rlogo" title="ChatGPT"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&amp;sz=128" alt="ChatGPT" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;C&lt;/b&gt;'"></span><span class="rlogo" title="Todoist"><svg role="img" aria-label="Todoist" width="22" height="22" fill="#E44332" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 0H3C1.35 0 0 1.35 0 3v3.858s3.854 2.24 4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.608 8.136-4.675.279-.161.58-.107.748-.01.164.097.606.348.84.48.232.134.221.502.013.622l-9.712 5.59c-.346.2-.69.204-1.048.002C3.478 10.907.998 9.463 0 8.882v2.02l4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.609 8.136-4.676.279-.16.58-.106.748-.008.164.096.606.347.84.48.232.133.221.5.013.62-.208.121-9.288 5.346-9.712 5.59-.346.2-.69.205-1.048.002C3.478 14.951.998 13.506 0 12.926v2.02l4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.609 8.136-4.676.279-.16.58-.106.748-.009.164.097.606.348.84.48.232.133.221.502.013.622l-9.712 5.59c-.346.199-.69.204-1.048.001C3.478 18.994.998 17.55 0 16.97V21c0 1.65 1.35 3 3 3h18c1.65 0 3-1.35 3-3V3c0-1.65-1.35-3-3-3z"/></svg></span></div></div>
+          <div class="tile rtile"><div class="rnum">05</div><div class="big">Color usage is warm, human and specific.</div><p>Teal for actions, marigold for anything that needs you, and red only when something is overdue.</p><div class="rswatch"><i style="background:#127567"></i><i style="background:#E9A93A"></i><i style="background:#C7413F"></i></div></div>
+          <div class="tile rtile"><div class="rnum">06</div><div class="big">The name: Keeper.</div><p>Like a goalie, it makes sure nothing gets past it, and it keeps your tasks for you.</p></div>
+        </div>
+      </div>
+      <aside class="notes"><ul><li><b>Built for the car, the hallway and the kitchen, not just the desk.</b> Mobile first: one status at a time, swipe to finish, and voice capture for hands-free moments.</li><li><b>Builds trust before automation.</b> Every task links to its source and new tasks wait for review. The agent drafts before it ever sends.</li><li><b>It’s a to-do list, not a complex workflow tool.</b> Up Next, In Progress, Done. The product should feel like a list in a notebook.</li><li><b>Borrowed what works from competitors.</b> Superhuman Mail’s response drafts, Otter’s backlinking to source content, ChatGPT’s voice mode, Todoist’s simplicity.</li><li><b>Color usage is warm, human and specific.</b> Teal for actions, marigold for anything that needs you, and red only when something is overdue.</li><li><b>The name: Keeper.</b> Like a goalie, it makes sure nothing gets past it, and it keeps your tasks for you.</li></ul></aside>
+    </section>
+
+    <!-- Recap -->
+    <section class="slide" data-name="Recap">
+      <div class="inner">
+        <div class="eyebrow">Recap</div>
+        <h2 class="recap-h">Keeper solves for continuous coordination on the go by <span class="serif">turning every conversation into tasks automatically.</span></h2>
+        <div class="grid g3 recap">
+          <div class="tile"><div class="label">Positioned as</div><div class="big">The only to-do list that updates itself</div></div>
+          <div class="tile"><div class="label">Built for</div><div class="big">Busy solo operators</div></div>
+          <div class="tile"><div class="label">Approach</div><div class="big">Builds trust before it automates</div></div>
+        </div>
+      </div>
+      <aside class="notes"><p>Keeper solves for continuous coordination on the go by turning every conversation into tasks automatically. It's positioned as the only to-do list that updates itself, specifically for solo operators, and it builds trust before it automates.</p></aside>
+    </section>
+
+    <!-- Questions -->
+    <section class="slide dark-slide" data-name="Questions" data-tone="dark">
+      <div class="inner demo-stage">
+        <h2>Questions?</h2>
+      </div>
+      <aside class="notes"><p>Open it up for Q&amp;A.</p></aside>
+    </section>
+
+    <!-- Appendix -->
+    <section class="slide dark-slide" data-name="Appendix" data-tone="dark">
+      <div class="inner demo-stage">
+        <h2>Appendix</h2>
+      </div>
+    </section>
+
+    <!-- About: product philosophy -->
+    <section class="slide" data-name="Product philosophy">
+      <div class="inner">
+        <h2>My Product <span class="serif">Philosophy</span></h2>
+        <ol class="philo">
+          <li><b>01</b><span><strong>Empower the impossible.</strong> The most successful products let users accomplish things they simply could not have done before.</span></li>
+          <li><b>02</b><span><strong>Minimal onboarding.</strong> The best products just work.</span></li>
+          <li><b>03</b><span><strong>Solve for right now.</strong> There are infinite ways to solve every user problem; choose what makes sense today.</span></li>
+          <li><b>04</b><span><strong>Get into the wild, fast.</strong> The sooner you get real-world feedback, the more likely you are to succeed.</span></li>
+          <li><b>05</b><span><strong>Build momentum.</strong> Success depends not just on product quality, but also on excitement within your team and your customers.</span></li>
+        </ol>
+      </div>
+      <aside class="notes"><ul>
+        <li>The most successful products empower users to accomplish things they simply would not have been able to do before.</li>
+        <li>The best products require zero onboarding: they just work.</li>
+        <li>There are infinite ways to solve every user problem; it’s about what makes sense right now.</li>
+        <li>The faster you get “in the wild” feedback, the more likely you are to succeed.</li>
+        <li>Success rests not only on product quality, but on momentum and excitement, within your team and your customer community.</li>
+      </ul></aside>
+    </section>
+
+    <!-- 3 Value & objectives -->
+    <section class="slide sec-value" data-name="Value & objectives" data-sec="value">
+      <div class="inner">
+        <div class="eyebrow">Product value &amp; objectives</div>
+        <h2>Our new flagship product should empower busy people <span class="serif">to focus on achieving their goals.</span></h2>
+        <div class="vgrid">
+        <div class="vpair">
+          <div class="vcol build"><div class="vlabel">How it helps our users</div>
+            <ul class="clean"><li>Lighten the mental load: capture, prioritize, carry out</li><li>Accountability in follow-through</li></ul></div>
+          <div class="vcol build"><div class="vlabel">Why it matters to our company</div>
+            <p class="vtext">Differentiated, widely adopted flagship in prosumer, positioned to pivot into B2B</p></div>
+        </div>
+        <div class="vmission build"><div class="vlabel">Mission statement</div>
+          <p class="mission">Clear mental clutter so busy people can focus on <em>what matters most.</em></p></div>
+        </div>
+        <div class="vobj build"><div class="vlabel">Objectives in focus</div>
+          <div class="track">
+            <div class="tstep now"><span class="twhen">Now</span><span class="twhat">Acquisition + early activation</span></div>
+            <div class="tline" aria-hidden="true"></div>
+            <div class="tstep later"><span class="twhen">Later</span><span class="twhat">Retention</span></div>
+          </div></div>
+        <div class="hint" id="valueHint">Click or press → to reveal each card</div>
+      </div>
+      <aside class="notes"><ul>
+        <li>User problems: lightens the mental load by helping capture, prioritize, and carry out tasks; offers accountability in task follow-through.</li>
+        <li>Company: needs a heavily differentiated, widely adopted flagship product in the prosumer space, with strategic positioning to pivot into B2B later.</li>
+        <li>Mission: clear mental clutter so busy people can focus on what matters most.</li>
+        <li>Focus objective: now acquisition + early activation; later retention (important for the B2B pivot).</li>
+      </ul></aside>
+    </section>
+
     <!-- 5 Segments heatmap -->
     <section class="slide sec-seg" data-name="Segments" data-sec="seg">
       <div class="inner">
-        <div class="eyebrow">03 · Target segments · Individuals</div>
+        <div class="eyebrow">Target segments · Individuals</div>
         <div class="chips before-deck heur"><span class="small" style="align-self:center">Heuristics</span><span class="chip">Life stage</span><span class="chip">Motivation</span><span class="chip">Attitude to AI</span></div>
         <div class="after-deck" style="justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
           <h2>Among individuals, we will focus on <span class="serif">“busy solo operators”</span></h2>
@@ -315,49 +483,10 @@
       </ul></aside>
     </section>
 
-    <!-- 6 Journey -->
-    <section class="slide sec-pain" data-name="Pain points" data-sec="pain">
-      <div class="inner">
-        <div class="eyebrow">04 · Pain points · Busy solo operators</div>
-        <h2>Pain points <span class="serif">across the user journey</span></h2>
-        <div class="phases">
-          <div class="phase once">
-            <div class="phead">At project start</div>
-            <div class="jstep"><div class="jnum">1</div><div class="card"><h3>Project planning</h3><p>Complex plans with many owners and steps</p></div></div>
-          </div>
-          <div class="parrow" aria-hidden="true">→</div>
-          <div class="phase daily">
-            <div class="phead">Daily</div>
-            <div class="dpair">
-              <div class="jstep"><div class="jnum">2</div><div class="card"><h3>Daily morning triage</h3><p>Priorities buried across emails, DMs and voicemails</p></div></div>
-              <div class="darrow" aria-hidden="true">→</div>
-              <div class="jstep pick"><div class="jnum">3</div><div class="card"><span class="tag">Biggest pain</span><h3>Continuous coordination on the go</h3><p>Tasks arrive all day by call, email and text, often on the go</p></div></div>
-            </div>
-            <div class="loop" aria-hidden="true"></div>
-            <div class="loop-label">Repeats every day</div>
-          </div>
-          <div class="phase adhoc">
-            <div class="phead">Ad hoc<small>Runs alongside daily work</small></div>
-            <div class="aitems">
-              <div class="aitem"><span class="jnum sm">4</span>Getting paid</div>
-              <div class="aitem"><span class="jnum sm">5</span>Prospecting</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <aside class="notes"><ul>
-        <li>Project planning: creating up-front, end-to-end project plans with owners of each step is complex, detailed, and time-consuming.</li>
-        <li>Daily morning triage: important requests are scattered across email, texts, DMs and voicemails, so urgent items get buried and it takes time to figure out what needs attention.</li>
-        <li>Continuous coordination on the go: commitments made mid-call or between appointments aren't captured well or are disorganized, because there's little time to write them down. Promised follow-ups may get forgotten.</li>
-        <li>Getting paid: invoicing, payment chasing and paperwork get pushed to evenings or delayed, slowing cash flow and eating into personal time, causing burnout.</li>
-        <li>Prospecting (ongoing): lead follow-ups and business development fall through the cracks when client work spikes, creating feast-or-famine income cycles.</li>
-      </ul></aside>
-    </section>
-
     <!-- 7 Pain prioritization -->
     <section class="slide sec-pain" data-name="Pain points" data-sec="pain">
       <div class="inner">
-        <div class="eyebrow">04 · Prioritizing pain points</div>
+        <div class="eyebrow">Prioritizing pain points</div>
         <h2>Ranked by <span class="serif">frequency × severity</span></h2>
         <div class="drill-stage">
         <div class="drill-a">
@@ -415,47 +544,10 @@
       </ul></aside>
     </section>
 
-    <!-- 8 JTBD -->
-
-    <!-- 9 Solutions -->
-    <section class="slide dark-slide sec-sol" data-name="Solutions" data-sec="sol" data-tone="dark">
-      <div class="inner">
-        <div class="eyebrow">05 · Potential solutions</div>
-        <h2>Three solutions <span class="serif">explored</span></h2>
-        <div class="grid g3">
-          <div class="tile hl">
-            <div class="sol-num">Solution 1</div>
-            <div class="big">Cross-channel task collector &amp; list generator</div>
-            <div style="color:var(--ink-2)">Agent parses conversations and generates a task list in real time</div>
-            <div class="chips"><span class="chip">Email</span><span class="chip">Phone</span><span class="chip">Video</span><span class="chip">Live</span><span class="chip">Texts</span><span class="chip">Slack</span><span class="chip">Teams</span></div>
-          </div>
-          <div class="tile">
-            <div class="sol-num">Solution 2</div>
-            <div class="big">One-press voice / text capture</div>
-            <div style="color:var(--ink-2)">Action Button or shortcut → speak → captured, no unlocking</div>
-            <div class="press" aria-hidden="true"><div class="key"><b></b></div>
-              <div class="wave"><i style="height:30%"></i><i style="height:70%"></i><i style="height:45%"></i><i style="height:90%"></i><i style="height:55%"></i><i style="height:80%"></i><i style="height:35%"></i><i style="height:65%"></i><i style="height:40%"></i></div></div>
-            <ul class="clean"><li>Enriched with calendar and location</li><li>Prompts for due date, collaborators</li></ul>
-          </div>
-          <div class="tile">
-            <div class="sol-num">Solution 3</div>
-            <div class="big">Agent-owned task category</div>
-            <div style="color:var(--ink-2)">Agent listens for preset, approved tasks and handles them</div>
-            <ul class="clean"><li>Simple email / message responses</li><li>Scheduling meetings</li></ul>
-          </div>
-        </div>
-      </div>
-      <aside class="notes"><ul>
-        <li><b>1. Cross-channel task collector & list generator:</b> agent integrates with cross-channel discussions and generates / updates the task list in real time. Parses email, phone, video or live conversation transcripts, texts, or Slack/Teams to gather tasks, deadlines, and roughly prioritize. Generates a suggested board (Backlog, To Do Today, In Progress, Blocked, Done) or calendar view the user can interact with.</li>
-        <li><b>2. One-press voice/text capture:</b> map the iPhone Action Button, Android shortcut, or laptop shortcut to instant voice capture. One press, speak the tasks, captured, without unlocking or opening apps. Enriched with recent calendar invites or location; user may be prompted for due date, collaborators, requesters; tasks can be sent to Trello, Notion, documents.</li>
-        <li><b>3. Agent-owned task category:</b> agent listens to specific channels for preset tasks it can handle independently and that the user has approved, minimizing tasks the user needs to track: simple email/message responses, scheduling meetings.</li>
-      </ul></aside>
-    </section>
-
     <!-- 10 Solution prioritization -->
     <section class="slide dark-slide sec-sol" data-name="Solutions" data-sec="sol" data-tone="dark">
       <div class="inner">
-        <div class="eyebrow">05 · Prioritizing solutions</div>
+        <div class="eyebrow">Prioritizing solutions</div>
         <h2>We’ll start with the cross-channel task collector, <span class="serif">and explore the other features later.</span></h2>
         <div class="window">
           <div class="wbar"><i></i><i></i><i></i><span>solutions · impact × effort</span></div>
@@ -492,54 +584,6 @@
       </ul></aside>
     </section>
 
-    <!-- Demo -->
-    <section class="slide dark-slide" data-name="Demo" data-tone="dark">
-      <div class="inner demo-stage">
-        <div class="eyebrow">06 · Demo</div>
-        <h2>Demo</h2>
-        <a class="demo-link" href="https://lenniez.github.io/keeper/" target="_blank" rel="noopener">Open Prototype <span aria-hidden="true">↗</span></a>
-      </div>
-      <aside class="notes"><p>Demo placeholder.</p></aside>
-    </section>
-
-    <!-- Design rationale -->
-    <section class="slide dark-slide sec-sol" data-name="Design rationale" data-sec="sol" data-tone="dark">
-      <div class="inner">
-        <h2>Design <span class="serif">rationale</span></h2>
-        <div class="grid g3 rgrid">
-          <div class="tile rtile"><div class="rnum">01</div><div class="big">Built for the car, the hallway and the kitchen, not just the desk.</div><p>Mobile first: one status at a time, swipe to finish, and voice capture for hands-free moments.</p></div>
-          <div class="tile rtile"><div class="rnum">02</div><div class="big">Builds trust before automation.</div><p>Every task links to its source and new tasks wait for review. The agent drafts before it ever sends.</p></div>
-          <div class="tile rtile"><div class="rnum">03</div><div class="big">It’s a to-do list, not a complex workflow tool.</div><p>Up Next, In Progress, Done. The product should feel like a list in a notebook.</p></div>
-          <div class="tile rtile"><div class="rnum">04</div><div class="big">Borrowed what works from competitors.</div><p>Superhuman Mail’s response drafts, Otter’s backlinking to source content, ChatGPT’s voice mode, Todoist’s simplicity.</p><div class="rlogos"><span class="rlogo" title="Superhuman"><img src="https://www.google.com/s2/favicons?domain=superhuman.com&amp;sz=128" alt="Superhuman" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;S&lt;/b&gt;'"></span><span class="rlogo" title="Otter"><img src="https://www.google.com/s2/favicons?domain=otter.ai&amp;sz=128" alt="Otter" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;O&lt;/b&gt;'"></span><span class="rlogo" title="ChatGPT"><img src="https://www.google.com/s2/favicons?domain=chatgpt.com&amp;sz=128" alt="ChatGPT" width="22" height="22" onerror="this.outerHTML='&lt;b&gt;C&lt;/b&gt;'"></span><span class="rlogo" title="Todoist"><svg role="img" aria-label="Todoist" width="22" height="22" fill="#E44332" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 0H3C1.35 0 0 1.35 0 3v3.858s3.854 2.24 4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.608 8.136-4.675.279-.161.58-.107.748-.01.164.097.606.348.84.48.232.134.221.502.013.622l-9.712 5.59c-.346.2-.69.204-1.048.002C3.478 10.907.998 9.463 0 8.882v2.02l4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.609 8.136-4.676.279-.16.58-.106.748-.008.164.096.606.347.84.48.232.133.221.5.013.62-.208.121-9.288 5.346-9.712 5.59-.346.2-.69.205-1.048.002C3.478 14.951.998 13.506 0 12.926v2.02l4.098 2.38c.31.18.694.177 1.004 0 .26-.147 8.02-4.609 8.136-4.676.279-.16.58-.106.748-.009.164.097.606.348.84.48.232.133.221.502.013.622l-9.712 5.59c-.346.199-.69.204-1.048.001C3.478 18.994.998 17.55 0 16.97V21c0 1.65 1.35 3 3 3h18c1.65 0 3-1.35 3-3V3c0-1.65-1.35-3-3-3z"/></svg></span></div></div>
-          <div class="tile rtile"><div class="rnum">05</div><div class="big">Color usage is warm, human and specific.</div><p>Teal for actions, marigold for anything that needs you, and red only when something is overdue.</p><div class="rswatch"><i style="background:#127567"></i><i style="background:#E9A93A"></i><i style="background:#C7413F"></i></div></div>
-          <div class="tile rtile"><div class="rnum">06</div><div class="big">The name: Keeper.</div><p>Like a goalie, it makes sure nothing gets past it, and it keeps your tasks for you.</p></div>
-        </div>
-      </div>
-      <aside class="notes"><ul><li><b>Built for the car, the hallway and the kitchen, not just the desk.</b> Mobile first: one status at a time, swipe to finish, and voice capture for hands-free moments.</li><li><b>Builds trust before automation.</b> Every task links to its source and new tasks wait for review. The agent drafts before it ever sends.</li><li><b>It’s a to-do list, not a complex workflow tool.</b> Up Next, In Progress, Done. The product should feel like a list in a notebook.</li><li><b>Borrowed what works from competitors.</b> Superhuman Mail’s response drafts, Otter’s backlinking to source content, ChatGPT’s voice mode, Todoist’s simplicity.</li><li><b>Color usage is warm, human and specific.</b> Teal for actions, marigold for anything that needs you, and red only when something is overdue.</li><li><b>The name: Keeper.</b> Like a goalie, it makes sure nothing gets past it, and it keeps your tasks for you.</li></ul></aside>
-    </section>
-
-    <!-- Recap -->
-    <section class="slide" data-name="Recap">
-      <div class="inner">
-        <div class="eyebrow">Recap</div>
-        <h2 class="recap-h">Keeper solves for continuous coordination on the go by <span class="serif">turning every conversation into tasks automatically.</span></h2>
-        <div class="grid g3 recap">
-          <div class="tile"><div class="label">Positioned as</div><div class="big">The only to-do list that updates itself</div></div>
-          <div class="tile"><div class="label">Built for</div><div class="big">Busy solo operators</div></div>
-          <div class="tile"><div class="label">Approach</div><div class="big">Builds trust before it automates</div></div>
-        </div>
-      </div>
-      <aside class="notes"><p>Keeper solves for continuous coordination on the go by turning every conversation into tasks automatically. It's positioned as the only to-do list that updates itself, specifically for solo operators, and it builds trust before it automates.</p></aside>
-    </section>
-
-    <!-- Questions -->
-    <section class="slide dark-slide" data-name="Questions" data-tone="dark">
-      <div class="inner demo-stage">
-        <h2>Questions?</h2>
-      </div>
-      <aside class="notes"><p>Open it up for Q&amp;A.</p></aside>
-    </section>
-
   </main>
 
   <footer class="foot">
@@ -558,7 +602,7 @@
   <div class="drawer-body" id="notesBody"></div>
 </div>
 
-<script src="app.js?v=1022e"></script>
+<script src="app.js?v=1022f"></script>
 
 </body>
 </html>

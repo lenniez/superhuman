@@ -762,3 +762,31 @@ body:not(.dark) .bar,body:not(.dark) .foot{border-color:#DFEEEB}
 .iph-status .sicons{gap:3px}
 .iph-status .sicons svg{height:clamp(5px,.52vw,7.5px)}
 .drawer{display:none!important}
+
+/* slide 3: wins left, philosophy right */
+.scale-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,4vw,56px);align-items:start;margin-top:clamp(6px,1.4vh,16px)}
+.sg-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.wins.stack{display:flex;flex-direction:column;gap:10px}
+.wins.stack .tile{display:grid;grid-template-columns:clamp(150px,13vw,190px) minmax(0,1fr);column-gap:20px;row-gap:2px;align-items:center;padding:14px 20px}
+.wins.stack .tile .label{grid-column:1/-1}
+.wins.stack .metrics{grid-column:1;grid-row:2}
+.wins.stack .tile p{grid-column:2;grid-row:2;margin:0}
+.wins.stack .num{font-size:clamp(34px,3.2vw,46px)}
+.philo.short{margin-top:0;max-width:none}
+.philo.short li{padding:16px 0}
+.philo.short span{font-size:clamp(18px,1.55vw,22px)}
+@media (max-width:900px){.scale-grid{grid-template-columns:1fr}}
+
+/* new segments slide: table, then the solo persona card on click */
+.segm-stage{display:grid;align-items:center;justify-items:center}
+.segm-stage>*{grid-area:1/1;min-width:0;width:100%}
+.segm-table{transition:opacity .5s ease,filter .5s ease}
+.seg-main:has(.segm-card.shown) .segm-table{opacity:.12;filter:blur(1px)}
+.segm-card{display:flex;justify-content:center}
+.segm-card .pcard{grid-area:auto;box-shadow:0 40px 80px -30px rgba(15,94,84,.55),0 0 0 2px var(--amethyst)}
+.seg-main:has(.segm-card.shown) .segm-hint{visibility:hidden}
+
+/* solutions: chosen solution stands out */
+.sec-sol .tile.sol-pick{box-shadow:0 0 0 4px var(--ember),0 30px 60px -24px rgba(6,50,44,.6)!important;border-color:transparent}
+.segm-card .pcard{background:#fff!important;opacity:1}
+.segm-card{position:relative;z-index:2}
