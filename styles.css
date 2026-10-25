@@ -858,3 +858,35 @@ svg.pav.maya{width:96px;height:96px;border-radius:50%;display:block}
 /* slide 4 fit */
 .hero:has(.kt){grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
 .kt{font-size:clamp(34px,3.7vw,54px)}
+
+/* slide 3: each win is a row of three columns: product · what it does · metric */
+.wins.stack .tile{grid-template-columns:clamp(150px,13vw,200px) minmax(0,1fr) clamp(120px,10vw,150px);grid-template-rows:auto;column-gap:clamp(14px,1.6vw,24px);align-items:center;padding:14px 20px}
+.wins.stack .tile .label.pname{grid-column:1;grid-row:1;display:flex;flex-direction:column;gap:2px}
+.wins.stack .tile .label.pname .via{margin-left:0;font-size:12px}
+.wins.stack .tile p{grid-column:2;grid-row:1}
+.wins.stack .metrics{grid-column:3;grid-row:1;justify-self:end;text-align:right;border-left:1px solid #E7F1EF;padding-left:clamp(12px,1.4vw,20px);align-self:stretch;display:flex;align-items:center;justify-content:flex-end}
+.wins.stack .m{flex-direction:column;align-items:flex-end;gap:2px}
+.wins.stack .num{font-size:clamp(24px,2.1vw,30px);line-height:1}
+.wins.stack .mlab{font-size:13px;line-height:1.25;text-align:right}
+
+/* slide 4: brand lockup, then slogan as the headline, then a quiet subtitle */
+.kt2{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(18px,3vh,30px);max-width:560px}
+.kt-lock{display:flex;align-items:center;gap:14px}
+.kt-lock .kt-logo{width:clamp(44px,3.8vw,56px);height:auto;margin:0;border-radius:24%;box-shadow:0 12px 24px -12px rgba(4,34,30,.6)}
+.kt-word{font-size:clamp(28px,2.6vw,38px);font-weight:600;letter-spacing:-.03em;color:#fff;line-height:1}
+h1.kt-slogan{margin:0;font-size:clamp(40px,4.4vw,62px);line-height:1.02;letter-spacing:-.03em;font-weight:560}
+h1.kt-slogan .serif{white-space:nowrap}
+.kt2 .hero-sub{margin:0;max-width:30ch;font-size:clamp(17px,1.5vw,21px);line-height:1.5;padding-top:clamp(14px,2.4vh,22px);border-top:1px solid rgba(255,255,255,.22)}
+
+/* slide 7 chips on the chosen card */
+.sec-pain .card .pchars{margin-top:10px}
+.sec-pain .card .pchar{font-size:14px;padding:3px 9px;background:#fff;color:#0B4F45}
+.jf-card .card .pchar{font-size:15px}
+.scale-grid{grid-template-columns:minmax(0,1.45fr) minmax(0,.8fr);gap:clamp(20px,3vw,44px)}
+.wins.stack .tile{grid-template-columns:clamp(140px,11vw,170px) minmax(0,1fr) clamp(110px,9vw,140px)}
+.wins.stack .tile .label.pname{text-align:left;align-items:flex-start}
+.wins.stack .tile p{font-size:clamp(14px,1.1vw,16px);line-height:1.4}
+.philo.short span{font-size:clamp(15px,1.2vw,17px)}
+.philo.short li{padding:9px 0}
+.sec-pain .phases .jstep.pick .card p{font-size:clamp(15px,1.2vw,17px)}
+.sec-pain .phases .jstep .card{padding-bottom:12px}
