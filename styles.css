@@ -914,3 +914,6 @@ h1.kt-slogan .serif{white-space:nowrap}
 .hero:has(.kt2){align-items:start}
 .hero:has(.kt2) .hero-copy{align-self:start}
 .hero:has(.kt2) .devices{align-self:start}
+/* titles stay one size even when a dense slide auto-shrinks to fit */
+.slide:not(.dark-slide) .inner h2,.slide.sec-sol .inner h2,h2.mission-h,h2.recap-h{font-size:calc(var(--title) / var(--z,1))!important}
+h1.kt-slogan{font-size:var(--title)}

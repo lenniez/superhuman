@@ -51,7 +51,7 @@
   function prev(){ if(!unreveal()) go(i-1,true); }
   function fit(){
     const s=slides[i],inn=s.querySelector('.inner');if(!inn)return;
-    inn.style.zoom='';
+    inn.style.zoom=''; inn.style.setProperty('--z',1);
     if(window.innerWidth<601)return;
     const cs=getComputedStyle(s);
     const avail=s.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
@@ -59,7 +59,7 @@
       const need=inn.getBoundingClientRect().height;
       if(need<=avail+1)break;
       const z=(parseFloat(inn.style.zoom)||1)*avail/need;
-      inn.style.zoom=Math.max(.5,z*0.99);
+      inn.style.zoom=Math.max(.5,z*0.99); inn.style.setProperty('--z',inn.style.zoom);
     }
   }
   slides.forEach((s,k)=>{
