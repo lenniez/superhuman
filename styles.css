@@ -829,3 +829,32 @@ svg.pav.maya{width:96px;height:96px;border-radius:50%;display:block}
 .sec-pain .jstep.pick .card{background:#D5F0E7!important;border-color:#5FB8A2!important}
 .sec-pain .jstep.pick .card h3{color:#0B4F45}
 .jf-card .card{background:#D5F0E7!important}
+
+/* one title size for every content slide */
+:root{--title:clamp(36px,4.1vw,54px)}
+.slide:not(.dark-slide) .inner h2,.slide.sec-sol .inner h2,h2.mission-h,h2.recap-h{font-size:var(--title)!important;line-height:1.05}
+.demo-stage h2{font-size:clamp(64px,10vw,140px)!important}
+
+/* slide 3: product names lead, metric secondary */
+.wins.stack .tile .label.pname{font-size:clamp(20px,1.7vw,24px);font-weight:600;letter-spacing:-.01em;text-transform:none;color:var(--ink)}
+.wins.stack .tile .label.pname .via{font-size:14px;letter-spacing:.04em;text-transform:uppercase;margin-left:8px}
+.wins.stack .num{font-size:clamp(24px,2.1vw,30px);color:var(--amethyst)}
+.wins.stack .mlab{font-size:14px;font-weight:500;color:var(--ink-2)}
+.wins.stack .tile p{font-size:clamp(15px,1.2vw,17px)}
+.philo.short li{padding:11px 0;gap:16px}
+.philo.short span{font-size:clamp(16px,1.35vw,19px)}
+
+/* slide 4 */
+.hero-sub{margin:clamp(14px,2.2vh,24px) 0 0;max-width:34ch;font-size:clamp(16px,1.4vw,20px);line-height:1.45;color:var(--on-dark-2)}
+.kt{font-size:clamp(38px,4.2vw,60px)}
+/* slide 3 compact tiles: name + metric on one row, description below */
+.wins.stack .tile{grid-template-columns:minmax(0,1fr) auto;row-gap:4px;padding:12px 18px}
+.wins.stack .tile .label.pname{grid-column:1;grid-row:1}
+.wins.stack .metrics{grid-column:2;grid-row:1;justify-self:end}
+.wins.stack .m{flex-direction:row;align-items:baseline;gap:6px}
+.wins.stack .num{font-size:clamp(20px,1.7vw,24px)}
+.wins.stack .tile p{grid-column:1/-1;grid-row:2}
+.scale-grid{margin-top:4px}
+/* slide 4 fit */
+.hero:has(.kt){grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.kt{font-size:clamp(34px,3.7vw,54px)}
