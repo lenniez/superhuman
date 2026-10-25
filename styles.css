@@ -907,3 +907,10 @@ h1.kt-slogan .serif{white-space:nowrap}
 .tl-step p{margin:0;color:var(--on-dark-2);font-size:clamp(14px,1.15vw,16px);line-height:1.45}
 @media (max-width:900px){.tl{grid-template-columns:1fr}}
 .tl{grid-template-columns:1.12fr 1fr}.tl-row{gap:16px}
+/* slide 4: logo matches the wordmark's cap height; copy top-aligned with the devices */
+.kt-lock{align-items:center;gap:.32em;font-size:clamp(28px,2.6vw,38px)}
+.kt-lock .kt-logo{width:1.05em;height:1.05em}
+.kt-word{font-size:1em}
+.hero:has(.kt2){align-items:start}
+.hero:has(.kt2) .hero-copy{align-self:start}
+.hero:has(.kt2) .devices{align-self:start}
