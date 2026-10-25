@@ -890,3 +890,20 @@ h1.kt-slogan .serif{white-space:nowrap}
 .philo.short li{padding:9px 0}
 .sec-pain .phases .jstep.pick .card p{font-size:clamp(15px,1.2vw,17px)}
 .sec-pain .phases .jstep .card{padding-bottom:12px}
+
+/* slide 10: AI timeline */
+.tl{display:grid;grid-template-columns:3fr 4fr;gap:14px;margin-top:clamp(8px,2vh,20px)}
+.tl-phase{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:18px 18px 20px}
+.tl-phase.p2{background:rgba(242,181,68,.10);border-color:rgba(242,181,68,.35)}
+.tl-h{display:flex;align-items:center;gap:10px;color:#fff;font-size:clamp(16px,1.3vw,19px);font-weight:600;margin-bottom:16px}
+.tl-tag{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:#fff;color:var(--mysteria);border-radius:999px;padding:3px 10px}
+.p2 .tl-tag{background:var(--ember);color:#3B2A05}
+.tl-row{list-style:none;margin:0;padding:0;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px;position:relative}
+.tl-row::before{content:"";position:absolute;left:16px;right:16px;top:15px;height:2px;background:rgba(255,255,255,.35)}
+.tl-step{position:relative;display:flex;flex-direction:column;gap:6px;min-width:0}
+.tl-dot{position:relative;z-index:1;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-size:15px;font-weight:600;background:#fff;color:var(--mysteria);margin-bottom:8px;box-shadow:0 0 0 5px rgba(255,255,255,.12)}
+.p2 .tl-dot{background:var(--ember);color:#3B2A05}
+.tl-step b{color:#fff;font-size:clamp(17px,1.4vw,20px);font-weight:600;line-height:1.2}
+.tl-step p{margin:0;color:var(--on-dark-2);font-size:clamp(14px,1.15vw,16px);line-height:1.45}
+@media (max-width:900px){.tl{grid-template-columns:1fr}}
+.tl{grid-template-columns:1.12fr 1fr}.tl-row{gap:16px}
