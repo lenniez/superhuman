@@ -918,3 +918,4 @@ h1.kt-slogan .serif{white-space:nowrap}
 .slide:not(.dark-slide) .inner h2,.slide.sec-sol .inner h2,h2.mission-h,h2.recap-h{font-size:calc(var(--title) / var(--z,1))!important}
 h1.kt-slogan{font-size:var(--title)}
 .tl{grid-template-columns:1fr 1.3fr}.tl-row{gap:12px}
+.tl{grid-template-columns:1.1fr 1fr}
