@@ -919,3 +919,10 @@ h1.kt-slogan .serif{white-space:nowrap}
 h1.kt-slogan{font-size:var(--title)}
 .tl{grid-template-columns:1fr 1.3fr}.tl-row{gap:12px}
 .tl{grid-template-columns:1.1fr 1fr}
+/* slide 4: hero copy scaled up to balance the device mockups */
+.kt2{max-width:620px;gap:clamp(20px,3.4vh,34px)}
+.kt-lock{font-size:clamp(34px,3.2vw,46px)}
+h1.kt-slogan{font-size:clamp(46px,5vw,72px)!important}
+.kt2 .hero-sub{font-size:clamp(19px,1.75vw,25px);max-width:32ch}
+.hero:has(.kt2){gap:clamp(40px,5vw,80px)}
+h1.kt-slogan{font-size:clamp(44px,4.5vw,66px)!important}
