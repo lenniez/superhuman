@@ -926,3 +926,5 @@ h1.kt-slogan{font-size:clamp(46px,5vw,72px)!important}
 .kt2 .hero-sub{font-size:clamp(19px,1.75vw,25px);max-width:32ch}
 .hero:has(.kt2){gap:clamp(40px,5vw,80px)}
 h1.kt-slogan{font-size:clamp(44px,4.5vw,66px)!important}
+.tl-kind{align-self:flex-start;font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;border-radius:6px;padding:2px 7px;margin-bottom:2px;border:1px solid rgba(255,255,255,.4);color:#fff}
+.tl-kind.agent{background:#fff;color:var(--mysteria);border-color:#fff}
